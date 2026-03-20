@@ -12,6 +12,9 @@ import {
   Scissors,
   EyeOff,
   Languages,
+  Type,
+  Braces,
+  QrCode,
 } from "lucide-react";
 
 export const metadata = {
@@ -50,13 +53,31 @@ const tools = [
     status: "Free",
   },
   {
-    title: "AI Summarizer",
-    desc: "Summarize long text using AI.",
-    icon: <Sparkles className="w-6 h-6" />,
-    href: "#",
-    color: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
-    category: "AI",
-    status: "Soon",
+    title: "JSON Formatter",
+    desc: "Prettify, validate, and minify your JSON data instantly.",
+    icon: <Braces className="w-6 h-6" />,
+    href: "/tools/json-formatter",
+    color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+    category: "Developer",
+    status: "Hot",
+  },
+  {
+    title: "QR Generator",
+    desc: "Create high-quality, custom QR codes for URLs and Wi-Fi.",
+    icon: <QrCode className="w-6 h-6" />,
+    href: "/tools/qr-code-generator",
+    color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
+    category: "Business",
+    status: "Popular",
+  },
+  {
+    title: "Case Converter",
+    desc: "Transform text to UPPERCASE, lowercase, Title Case, camelCase, and more.",
+    icon: <Type className="w-6 h-6" />,
+    href: "/tools/case-converter",
+    color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
+    category: "Text",
+    status: "New",
   },
   {
     title: "PDF Splitter",
