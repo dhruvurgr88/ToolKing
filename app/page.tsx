@@ -15,7 +15,7 @@ import { Metadata } from "next";
 
 // 1. DYNAMIC METADATA FOR GOOGLE RANKING
 export const metadata: Metadata = {
-  title: "ToolKing - Free Online PDF & AI Tools for Students",
+  title: "ToolKing - Free Online PDF & AI Tools",
   description:
     "Convert images to PDF, count words, and analyze documents instantly. Fast, private, and 100% free online tools for students and creators. No sign-up required.",
   keywords: [

@@ -96,7 +96,7 @@ export default function ToolsGallery() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-2 uppercase italic">
-                All Tools
+                Free Online Tools
               </h1>
               <p className="text-slate-500 dark:text-slate-400 font-medium">
                 Professional utilities engineered for privacy and speed.

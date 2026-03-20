@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"; // 1. Import the component
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -95,6 +96,7 @@ export default function RootLayout({
             </p>
           </footer>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
