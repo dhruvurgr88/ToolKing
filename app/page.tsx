@@ -44,7 +44,7 @@ export default function HomePage() {
           </span>
 
           <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 bg-gradient-to-b from-slate-950 via-slate-700 to-slate-400 dark:from-white dark:via-slate-200 dark:to-slate-500 bg-clip-text text-transparent leading-[0.95]">
-            Professional Tools. <br /> Zero Subscription.
+            Free Professional Tools. <br /> Zero Subscription.
           </h1>
 
           <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">

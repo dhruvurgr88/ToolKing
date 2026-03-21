@@ -15,6 +15,7 @@ import {
   Type,
   Braces,
   QrCode,
+  Barcode,
 } from "lucide-react";
 
 export const metadata = {
@@ -69,6 +70,15 @@ const tools = [
     color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
     category: "Business",
     status: "Popular",
+  },
+  {
+    title: "Barcode Generator",
+    desc: "Generate professional Code 128, EAN-13, and UPC barcodes for retail.",
+    icon: <Barcode className="w-6 h-6" />, // Ensure Barcode is imported from lucide-react
+    href: "/tools/barcode-generator",
+    color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+    category: "Business", // Changed from Text to Business for better organization
+    status: "New",
   },
   {
     title: "Case Converter",
