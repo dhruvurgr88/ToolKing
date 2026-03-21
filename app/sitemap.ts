@@ -3,13 +3,12 @@ import { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://toolking.online";
 
-  // List all your main pages and tools here
   return [
     {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "daily",
-      priority: 1, // Homepage is the most important
+      priority: 1,
     },
     {
       url: `${baseUrl}/tools`,
@@ -25,6 +24,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/tools/pdf-merger`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/tools/pdf-splitter`, // Added this!
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,

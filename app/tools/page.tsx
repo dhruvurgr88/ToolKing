@@ -81,12 +81,12 @@ const tools = [
   },
   {
     title: "PDF Splitter",
-    desc: "Extract specific pages from PDF.",
-    icon: <Scissors className="w-6 h-6" />,
-    href: "#",
+    desc: "Extract specific pages or split large PDFs instantly.",
+    icon: <Scissors className="w-6 h-6" />, // Ensure Scissor is imported from lucide-react
+    href: "/tools/pdf-splitter",
     color: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
     category: "PDF",
-    status: "Soon",
+    status: "New", // Changed from 'Soon' to 'New'
   },
   {
     title: "Unlock PDF",

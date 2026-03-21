@@ -24,7 +24,7 @@ export default function QrGeneratorPage() {
           <Zap className="w-3 h-3" /> Instant Generation
         </div>
         <h1 className="text-4xl md:text-7xl font-black mb-6 bg-gradient-to-r from-slate-900 via-blue-600 to-slate-900 dark:from-white dark:via-blue-400 dark:to-white bg-clip-text text-transparent leading-[1.1]">
-          Professional <br /> QR Generator
+          Free Professional <br /> QR Generator
         </h1>
         <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
           Create beautiful, high-resolution QR codes for your business or
