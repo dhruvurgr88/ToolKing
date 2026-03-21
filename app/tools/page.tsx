@@ -17,6 +17,7 @@ import {
   QrCode,
   Barcode,
   Link2,
+  FileImage,
 } from "lucide-react";
 
 export const metadata = {
@@ -71,6 +72,33 @@ const tools = [
     color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
     category: "Business",
     status: "Popular",
+  },
+  {
+    title: "Password Generator",
+    desc: "Create ultra-secure, random passwords with zero-knowledge privacy.",
+    icon: <Lock className="w-6 h-6" />,
+    href: "/tools/password-generator",
+    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    category: "Security",
+    status: "New",
+  },
+  {
+    title: "PDF to Image",
+    desc: "Convert PDF pages into high-quality JPG or PNG images instantly.",
+    icon: <FileImage className="w-6 h-6" />,
+    href: "/tools/pdf-to-image",
+    color: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+    category: "PDF",
+    status: "New",
+  },
+  {
+    title: "Image Compressor",
+    desc: "Reduce image file size by up to 90% without losing quality.",
+    icon: <Zap className="w-6 h-6" />,
+    href: "/tools/image-compressor",
+    color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
+    category: "Image",
+    status: "Hot",
   },
   {
     title: "Barcode Generator",
