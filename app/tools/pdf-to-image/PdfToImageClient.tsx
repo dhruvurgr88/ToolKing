@@ -86,8 +86,11 @@ export default function PdfToImageClient() {
         canvas.width = viewport.width;
 
         if (context) {
-          await page.render({ canvasContext: context, viewport: viewport })
-            .promise;
+          await page.render({
+            canvasContext: context,
+            viewport: viewport,
+            canvas: canvas, // <--- ADD THIS LINE
+          }).promise;
 
           // Use format from state
           const blob = await new Promise<Blob | null>((res) =>

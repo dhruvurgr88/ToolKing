@@ -36,6 +36,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/tools/pdf-to-image`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
     // --- TEXT & DEVELOPER TOOLS ---
     {
       url: `${baseUrl}/tools/word-counter`,
