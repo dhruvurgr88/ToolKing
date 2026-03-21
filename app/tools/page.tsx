@@ -19,6 +19,7 @@ import {
   Link2,
   FileImage,
   Layers,
+  CalendarDays,
 } from "lucide-react";
 
 export const metadata = {
@@ -37,6 +38,15 @@ const tools = [
     color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
     category: "PDF",
     status: "Popular",
+  },
+  {
+    title: "Age Calculator",
+    desc: "Calculate exact age for exam forms & fun facts.",
+    icon: <CalendarDays className="w-6 h-6" />, // Or use <Timer />
+    href: "/tools/age-calculator",
+    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    category: "Utility",
+    status: "New",
   },
   {
     title: "PDF Merger",
