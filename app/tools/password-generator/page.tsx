@@ -7,7 +7,8 @@ import {
   Zap,
   Fingerprint,
   ArrowRight,
-  HelpCircle,
+  Scaling,
+  Image as ImageIcon,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -48,7 +49,61 @@ export default function PasswordGeneratorPage() {
 
       <ToolWrapper />
 
-      <section className="mt-32 border-t border-slate-100 dark:border-slate-900 pt-20">
+      {/* --- 🔥 NEW: INTERNAL LINKS FOR SEO INDEXING --- */}
+      <section className="mt-20 py-12 border-y border-slate-100 dark:border-slate-900">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8 text-center italic">
+          More Essential Tools for Your Digital Workflow
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/tools/image-compressor"
+            className="group p-6 bg-blue-500/5 hover:bg-blue-500/10 border border-blue-500/10 rounded-[2.5rem] transition-all flex items-center justify-between"
+          >
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-blue-600 border border-blue-100 dark:border-slate-700">
+                <Zap size={20} />
+              </div>
+              <div>
+                <p className="font-black text-sm uppercase tracking-tight text-slate-900 dark:text-white">
+                  Image Compressor
+                </p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest italic">
+                  Fast & Private KB Matcher
+                </p>
+              </div>
+            </div>
+            <ArrowRight
+              className="text-blue-500 group-hover:translate-x-1 transition-transform"
+              size={18}
+            />
+          </Link>
+
+          <Link
+            href="/tools/bulk-image-resizer"
+            className="group p-6 bg-emerald-500/5 hover:bg-emerald-500/10 border border-emerald-500/10 rounded-[2.5rem] transition-all flex items-center justify-between"
+          >
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-emerald-600 border border-emerald-100 dark:border-slate-700">
+                <Scaling size={20} />
+              </div>
+              <div>
+                <p className="font-black text-sm uppercase tracking-tight text-slate-900 dark:text-white">
+                  Bulk Resizer
+                </p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest italic">
+                  Resize Folders of Images
+                </p>
+              </div>
+            </div>
+            <ArrowRight
+              className="text-emerald-500 group-hover:translate-x-1 transition-transform"
+              size={18}
+            />
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-32 pt-10">
         <div className="grid md:grid-cols-3 gap-12">
           <div className="space-y-4">
             <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 dark:bg-emerald-900/20">
@@ -93,12 +148,12 @@ export default function PasswordGeneratorPage() {
           </div>
         </div>
 
+        {/* RELATED TOOLS FOOTER */}
         <div className="mt-32 p-12 bg-emerald-600 rounded-[3.5rem] text-white text-center shadow-2xl shadow-emerald-500/20">
           <h3 className="text-2xl font-black mb-6 italic">
             Secure Your Other Assets
           </h3>
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-            <RelatedTool href="/tools/url-shortener" title="URL Shortener" />
             <RelatedTool href="/tools/pdf-merger" title="PDF Merger" />
             <RelatedTool
               href="/tools/qr-code-generator"

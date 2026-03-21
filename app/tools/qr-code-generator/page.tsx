@@ -1,7 +1,17 @@
 import { Metadata } from "next";
 import ToolWrapper from "../qr-code-generator/ToolWrapper";
 import FAQItem from "../../components/FAQItem";
-import { QrCode, Share2, Download, ShieldCheck, Zap } from "lucide-react";
+import Link from "next/link"; // Added for SEO
+import {
+  QrCode,
+  Share2,
+  Download,
+  ShieldCheck,
+  Zap,
+  ArrowRight,
+  FileStack,
+  Scissors,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Free Custom QR Code Generator | ToolKing",
@@ -34,7 +44,61 @@ export default function QrGeneratorPage() {
 
       <ToolWrapper />
 
-      <section className="mt-24 grid lg:grid-cols-2 gap-16 border-t border-slate-100 dark:border-slate-900 pt-20">
+      {/* --- 🔥 NEW: INTERNAL LINKS FOR PDF TOOLS INDEXING --- */}
+      <section className="mt-20 py-12 border-y border-slate-100 dark:border-slate-900">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8 text-center italic">
+          Complete Your Business Documents
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/tools/pdf-merger"
+            className="group p-6 bg-indigo-500/5 hover:bg-indigo-500/10 border border-indigo-500/10 rounded-[2rem] transition-all flex items-center justify-between"
+          >
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-indigo-600">
+                <FileStack size={20} />
+              </div>
+              <div>
+                <p className="font-black text-sm uppercase tracking-tight text-slate-900 dark:text-white">
+                  PDF Merger
+                </p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                  Merge Reports & Menus
+                </p>
+              </div>
+            </div>
+            <ArrowRight
+              className="text-indigo-500 group-hover:translate-x-1 transition-transform"
+              size={18}
+            />
+          </Link>
+
+          <Link
+            href="/tools/pdf-splitter"
+            className="group p-6 bg-rose-500/5 hover:bg-rose-500/10 border border-rose-500/10 rounded-[2rem] transition-all flex items-center justify-between"
+          >
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-rose-600">
+                <Scissors size={20} />
+              </div>
+              <div>
+                <p className="font-black text-sm uppercase tracking-tight text-slate-900 dark:text-white">
+                  PDF Splitter
+                </p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                  Extract PDF Pages
+                </p>
+              </div>
+            </div>
+            <ArrowRight
+              className="text-rose-500 group-hover:translate-x-1 transition-transform"
+              size={18}
+            />
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-24 grid lg:grid-cols-2 gap-16 pt-10">
         <div>
           <h2 className="text-3xl font-black mb-6 tracking-tight">
             Why use ToolKing?
@@ -58,7 +122,9 @@ export default function QrGeneratorPage() {
           </div>
         </div>
         <div>
-          <h2 className="text-3xl font-black mb-8 tracking-tight">FAQs</h2>
+          <h2 className="text-3xl font-black mb-8 tracking-tight text-slate-900 dark:text-white">
+            FAQs
+          </h2>
           <FAQItem
             question="Do these QR codes expire?"
             answer="No. These are static QR codes, meaning the data is encoded directly into the pattern. They will work forever."

@@ -1,7 +1,14 @@
 import { Metadata } from "next";
 import ToolWrapper from "../word-counter/ToolWrapper";
 import FAQItem from "../../components/FAQItem";
-import { ShieldCheck, CheckCircle } from "lucide-react";
+import Link from "next/link"; // Added for SEO
+import {
+  ShieldCheck,
+  CheckCircle,
+  ArrowRight,
+  FileStack,
+  Scissors,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Free Online Word Counter - Real-Time Text Analytics | ToolKing",
@@ -49,8 +56,62 @@ export default function WordCounterPage() {
       {/* THE TOOL WRAPPER */}
       <ToolWrapper />
 
+      {/* --- 🔥 NEW: INTERNAL LINKS FOR PDF TOOLS INDEXING --- */}
+      <section className="mt-20 py-12 border-y border-slate-100 dark:border-slate-900">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8 text-center italic">
+          Manage Your Documents with ToolKing
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/tools/pdf-merger"
+            className="group p-6 bg-indigo-500/5 hover:bg-indigo-500/10 border border-indigo-500/10 rounded-[2rem] transition-all flex items-center justify-between"
+          >
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-indigo-600">
+                <FileStack size={20} />
+              </div>
+              <div>
+                <p className="font-black text-sm uppercase tracking-tight text-slate-900 dark:text-white">
+                  PDF Merger
+                </p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                  Combine Multiple Files
+                </p>
+              </div>
+            </div>
+            <ArrowRight
+              className="text-indigo-500 group-hover:translate-x-1 transition-transform"
+              size={18}
+            />
+          </Link>
+
+          <Link
+            href="/tools/pdf-splitter"
+            className="group p-6 bg-rose-500/5 hover:bg-rose-500/10 border border-rose-500/10 rounded-[2rem] transition-all flex items-center justify-between"
+          >
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-rose-600">
+                <Scissors size={20} />
+              </div>
+              <div>
+                <p className="font-black text-sm uppercase tracking-tight text-slate-900 dark:text-white">
+                  PDF Splitter
+                </p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                  Extract Specific Pages
+                </p>
+              </div>
+            </div>
+            <ArrowRight
+              className="text-rose-500 group-hover:translate-x-1 transition-transform"
+              size={18}
+            />
+          </Link>
+        </div>
+      </section>
+
       {/* SEO & FAQ SECTION - Google can read this instantly */}
-      <div className="grid lg:grid-cols-3 gap-16 border-t border-slate-100 dark:border-slate-900 pt-16 mt-20">
+      <div className="grid lg:grid-cols-3 gap-16 pt-16 mt-10">
         <div className="lg:col-span-1">
           <h2 className="text-2xl font-black mb-6 flex items-center gap-2 dark:text-white italic">
             <ShieldCheck className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />

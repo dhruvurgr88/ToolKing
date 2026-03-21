@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import ToolWrapper from "./ToolWrapper";
 import FAQItem from "../../components/FAQItem";
+import Link from "next/link"; // Added for internal linking
 import {
   ShieldCheck,
   Zap,
@@ -8,6 +9,10 @@ import {
   Star,
   FileCheck,
   MousePointerClick,
+  ArrowRight,
+  Image as ImageIcon,
+  Scaling,
+  ZapOff,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -47,8 +52,62 @@ export default function ImageToPdfPage() {
       {/* --- THE TOOL WRAPPER --- */}
       <ToolWrapper />
 
+      {/* --- 🔥 NEW: INTERNAL LINKS FOR SEO INDEXING --- */}
+      <section className="mt-20 py-12 border-y border-slate-100 dark:border-slate-900">
+        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-8 text-center">
+          You might also need these tools
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/tools/image-compressor"
+            className="group p-6 bg-blue-500/5 hover:bg-blue-500/10 border border-blue-500/10 rounded-[2rem] transition-all flex items-center justify-between"
+          >
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-blue-600">
+                <Zap size={20} />
+              </div>
+              <div>
+                <p className="font-black text-sm uppercase tracking-tight">
+                  Image Compressor
+                </p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                  Optimized for SSC & Vyapam
+                </p>
+              </div>
+            </div>
+            <ArrowRight
+              className="text-blue-500 group-hover:translate-x-1 transition-transform"
+              size={18}
+            />
+          </Link>
+
+          <Link
+            href="/tools/bulk-image-resizer"
+            className="group p-6 bg-emerald-500/5 hover:bg-emerald-500/10 border border-emerald-500/10 rounded-[2rem] transition-all flex items-center justify-between"
+          >
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-emerald-600">
+                <Scaling size={20} />
+              </div>
+              <div>
+                <p className="font-black text-sm uppercase tracking-tight">
+                  Bulk Resizer
+                </p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                  Batch Resize 100+ Images
+                </p>
+              </div>
+            </div>
+            <ArrowRight
+              className="text-emerald-500 group-hover:translate-x-1 transition-transform"
+              size={18}
+            />
+          </Link>
+        </div>
+      </section>
+
       {/* --- DETAILED SEO CONTENT --- */}
-      <section className="mt-24 grid lg:grid-cols-2 gap-20 border-t border-slate-100 dark:border-slate-900 pt-20">
+      <section className="mt-24 grid lg:grid-cols-2 gap-20 pt-10">
         <div>
           <h2 className="text-3xl font-black mb-6 tracking-tight text-slate-900 dark:text-white">
             Professional PDF Quality
