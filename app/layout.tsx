@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import { Providers } from "./providers";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -79,6 +80,18 @@ export default function RootLayout({
           in your globals.css. This prevents "specificity wars".
       */}
       <body className="min-h-full flex flex-col transition-colors duration-300">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-VJNH65YGLH"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-script" strategy="afterInteractive">
+          {`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-VJNH65YGLH');
+    `}
+        </Script>
         <Providers>
           <Navbar />
 
