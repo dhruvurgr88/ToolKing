@@ -18,6 +18,7 @@ import {
   Barcode,
   Link2,
   FileImage,
+  Layers,
 } from "lucide-react";
 
 export const metadata = {
@@ -135,6 +136,15 @@ const tools = [
     color: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
     category: "PDF",
     status: "New", // Changed from 'Soon' to 'New'
+  },
+  {
+    title: "Bulk Image Resizer",
+    desc: "Resize hundreds of JPG, PNG, or WebP images instantly in your browser.",
+    icon: <Layers className="w-6 h-6" />, // Or <Scaling /> if you prefer
+    href: "/tools/bulk-image-resizer",
+    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    category: "Image",
+    status: "Hot", // Bulk tools are high-value!
   },
   {
     title: "Unlock PDF",
