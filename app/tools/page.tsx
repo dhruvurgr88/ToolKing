@@ -16,6 +16,7 @@ import {
   Braces,
   QrCode,
   Barcode,
+  Link2,
 } from "lucide-react";
 
 export const metadata = {
@@ -78,6 +79,15 @@ const tools = [
     href: "/tools/barcode-generator",
     color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
     category: "Business", // Changed from Text to Business for better organization
+    status: "New",
+  },
+  {
+    title: "URL Shortener",
+    desc: "Create short, clean, and trackable links for social media instantly.",
+    icon: <Link2 className="w-6 h-6" />, // Ensure Link2 is imported from lucide-react
+    href: "/tools/url-shortener",
+    color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
+    category: "Marketing",
     status: "New",
   },
   {
