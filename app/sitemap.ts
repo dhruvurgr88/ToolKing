@@ -19,16 +19,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // --- 🔥 EXAM SPECIAL TOOLS (TOP PRIORITY) ---
     {
-      url: `${baseUrl}/tools/age-calculator`, // Added
+      url: `${baseUrl}/tools/age-calculator`,
       lastModified: currentDate,
       changeFrequency: "daily",
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/tools/image-compressor`, // Added
+      url: `${baseUrl}/tools/image-compressor`,
       lastModified: currentDate,
       changeFrequency: "weekly",
       priority: 0.9,
+    },
+    // --- 🖼️ IMAGE SUITE ---
+    {
+      url: `${baseUrl}/tools/bulk-image-resizer`, // 🔥 ADDED THIS
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
     // --- PDF SUITE ---
     {
