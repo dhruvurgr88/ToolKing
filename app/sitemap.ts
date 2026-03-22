@@ -17,6 +17,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.9,
     },
+    // --- 🔥 EXAM SPECIAL TOOLS (TOP PRIORITY) ---
+    {
+      url: `${baseUrl}/tools/age-calculator`, // Added
+      lastModified: currentDate,
+      changeFrequency: "daily",
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/tools/image-compressor`, // Added
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
     // --- PDF SUITE ---
     {
       url: `${baseUrl}/tools/image-to-pdf`,
@@ -61,7 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7,
     },
-    // --- NEW HIGH-TRAFFIC TOOLS (ADDED) ---
+    // --- UTILITIES ---
     {
       url: `${baseUrl}/tools/qr-code-generator`,
       lastModified: currentDate,
@@ -69,19 +82,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/tools/barcode-generator`, // 🔥 NEW
+      url: `${baseUrl}/tools/barcode-generator`,
       lastModified: currentDate,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/tools/url-shortener`, // 🔥 NEW
+      url: `${baseUrl}/tools/url-shortener`,
       lastModified: currentDate,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/tools/password-generator`, // 🔥 NEW
+      url: `${baseUrl}/tools/password-generator`,
       lastModified: currentDate,
       changeFrequency: "weekly",
       priority: 0.8,

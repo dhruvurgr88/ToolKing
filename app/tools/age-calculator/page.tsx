@@ -48,7 +48,8 @@ export default function AgeCalculatorPage() {
       {
         "@type": "Question",
         name: "How to calculate age for SSC or UPSC exam forms?",
-        answer: {
+        acceptedAnswer: {
+          // Changed from 'answer' to 'acceptedAnswer'
           "@type": "Answer",
           text: "Simply enter your Date of Birth and set the 'Age at the Date of' field to the specific date mentioned in the official exam notification. Our tool will give you the exact years, months, and days.",
         },
@@ -56,7 +57,8 @@ export default function AgeCalculatorPage() {
       {
         "@type": "Question",
         name: "Is this age calculator accurate for leap years?",
-        answer: {
+        acceptedAnswer: {
+          // Changed from 'answer' to 'acceptedAnswer'
           "@type": "Answer",
           text: "Yes, ToolKing's age calculator accounts for leap years and varying month lengths to ensure 100% accuracy for official documentation.",
         },
