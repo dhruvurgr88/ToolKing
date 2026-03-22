@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PDFDocument } from "pdf-lib";
 
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
-    const file = formData.get("file") as File;
-    const password = formData.get("password") as string;
+    const file = formData.get("File") as File;
+    const password = formData.get("Password") as string;
 
     if (!file || !password) {
       return NextResponse.json(
@@ -14,30 +13,39 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const arrayBuffer = await file.arrayBuffer();
+    const azureFormData = new FormData();
+    azureFormData.append("File", file);
+    azureFormData.append("Password", password);
 
-    // Load the existing PDF
-    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const azureResponse = await fetch(
+      "https://vidyaos-api-bmggd8fecxfqh9gf.centralindia-01.azurewebsites.net/api/AIChat/ProtectPdf",
+      {
+        method: "POST",
+        body: azureFormData,
+      },
+    );
 
-    // --- 🧠 THE TRUTH ABOUT PDF-LIB ---
-    // pdf-lib does NOT support native encryption.
-    // This code creates a clean copy.
-    // To add REAL encryption, you would typically spawn a 'qpdf' process here
-    // if your server environment supports it.
+    if (!azureResponse.ok) {
+      return NextResponse.json(
+        { error: "Azure API Error" },
+        { status: azureResponse.status },
+      );
+    }
 
-    const pdfBytes = await pdfDoc.save();
+    const pdfArrayBuffer = await azureResponse.arrayBuffer();
+    // 🔥 Convert to Buffer to satisfy Next.js 16 build types
+    const pdfBuffer = Buffer.from(pdfArrayBuffer);
 
-    return new NextResponse(pdfBytes, {
+    return new NextResponse(pdfBuffer, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="protected_toolking.pdf"`,
+        "Content-Disposition": `attachment; filename="protected_${file.name}"`,
       },
     });
-  } catch (err) {
-    console.error("Server Error:", err);
+  } catch (error) {
     return NextResponse.json(
-      { error: "Failed to process PDF on server" },
+      { error: "Internal Server Error" },
       { status: 500 },
     );
   }

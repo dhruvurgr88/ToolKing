@@ -1,7 +1,8 @@
 import { Metadata } from "next";
-import PdfToWordClient from "./PdfToWordClient";
 import Link from "next/link";
+import ToolBridge from "./ToolBridge";
 
+// 1. SEO METADATA (Server-Side)
 export const metadata: Metadata = {
   title:
     "Free PDF to Word Converter Online | Convert PDF to Editable DOCX | ToolKing",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 };
 
 export default function PdfToWordPage() {
+  // 2. STRUCTURED DATA (Schemas)
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -60,6 +62,7 @@ export default function PdfToWordPage() {
 
   return (
     <article className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
+      {/* --- INJECT SCHEMAS --- */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
@@ -84,12 +87,14 @@ export default function PdfToWordPage() {
             PDF to Word
           </span>
         </nav>
+
         <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white italic mb-6">
           PDF to{" "}
           <span className="text-indigo-600 underline decoration-indigo-100 underline-offset-8">
             Word
           </span>
         </h1>
+
         <p className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
           Convert PDF to{" "}
           <span className="text-slate-900 dark:text-white font-bold">
@@ -100,11 +105,12 @@ export default function PdfToWordPage() {
         </p>
       </div>
 
-      <PdfToWordClient />
+      {/* --- THE BUILD-SAFE BRIDGE --- */}
+      {/* This component handles the 'ssr: false' dynamic import of the heavy engine */}
+      <ToolBridge />
 
       {/* --- SEO CONTENT HUB --- */}
       <div className="max-w-5xl mx-auto mt-32 space-y-24 px-6">
-        {/* SECTION 1: DEPTH CONTENT */}
         <section className="grid md:grid-cols-2 gap-16 items-center">
           <div className="space-y-6">
             <h2 className="text-3xl font-black italic text-slate-900 dark:text-white">
@@ -118,6 +124,7 @@ export default function PdfToWordPage() {
               your reports, assignments, or resumes in Microsoft Word.
             </p>
           </div>
+
           <div className="bg-white dark:bg-slate-900 p-8 rounded-[3rem] border border-slate-200 dark:border-slate-800 shadow-sm">
             <h3 className="text-sm font-black uppercase tracking-widest text-indigo-600 mb-4">
               How to convert?
@@ -139,7 +146,6 @@ export default function PdfToWordPage() {
           </div>
         </section>
 
-        {/* SECTION 2: USE CASES */}
         <section className="space-y-12">
           <h2 className="text-3xl font-black italic text-center">
             Who needs this tool?
@@ -172,7 +178,7 @@ export default function PdfToWordPage() {
           </div>
         </section>
 
-        {/* SECTION 3: INTERNAL LINKS */}
+        {/* --- CROSS-TOOL NAVIGATION --- */}
         <section className="bg-slate-900 text-white p-12 rounded-[4rem] text-center space-y-8">
           <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">
             More PDF Solutions
@@ -196,28 +202,6 @@ export default function PdfToWordPage() {
             >
               Word Counter
             </Link>
-          </div>
-        </section>
-
-        {/* SECTION 4: FAQs */}
-        <section className="space-y-10 pb-20">
-          <h2 className="text-3xl font-black italic text-center text-slate-900 dark:text-white">
-            FAQs
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {faqSchema.mainEntity.map((item, i) => (
-              <div
-                key={i}
-                className="p-8 bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800"
-              >
-                <h4 className="font-bold mb-3 text-slate-900 dark:text-white">
-                  {item.name}
-                </h4>
-                <p className="text-sm text-slate-500 font-medium leading-relaxed">
-                  {item.acceptedAnswer.text}
-                </p>
-              </div>
-            ))}
           </div>
         </section>
       </div>
