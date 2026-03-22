@@ -129,7 +129,6 @@ export default function AgeCalculatorPage() {
         </div>
       </section>
 
-      {/* --- OPTIMIZED SEO CONTENT --- */}
       <section className="mt-24 grid lg:grid-cols-2 gap-20 pt-10">
         <div>
           <h2 className="text-3xl font-black mb-6 tracking-tight text-slate-900 dark:text-white leading-tight">

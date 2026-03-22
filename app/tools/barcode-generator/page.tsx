@@ -165,7 +165,6 @@ export default function BarcodePage() {
       {/* --- THE TOOL ENGINE --- */}
       <ToolWrapper />
 
-      {/* --- NEW: DEEP DIVE CONTENT (SEO 400+ WORDS) --- */}
       <section
         id="how-it-works"
         className="mt-24 max-w-4xl mx-auto border-t border-slate-100 dark:border-slate-800 pt-20"

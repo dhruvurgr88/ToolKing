@@ -10,6 +10,13 @@ import {
   Combine,
   ArrowRight,
   Scaling,
+  Calendar,
+  ListOrdered,
+  HelpCircle,
+  Users,
+  CheckCircle2,
+  Info,
+  FileText,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -22,11 +29,32 @@ export const metadata: Metadata = {
     "pdf joiner free",
     "ToolKing",
     "merge multiple pdfs",
+    "secure pdf merger no upload",
   ],
+  alternates: {
+    canonical: "https://toolking.online/tools/pdf-merger",
+  },
 };
 
 export default function PdfMergerPage() {
-  // --- 🔥 SEO ENHANCEMENTS (JSON-LD) ---
+  const baseUrl = "https://toolking.online";
+  const toolName = "PDF Merger";
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: `${baseUrl}/tools`,
+      },
+      { "@type": "ListItem", position: 3, name: toolName },
+    ],
+  };
+
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -38,41 +66,71 @@ export default function PdfMergerPage() {
       "Professional browser-based tool to combine multiple PDF files into a single document without server uploads.",
   };
 
-  const faqSchema = {
+  const howToSchema = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
+    "@type": "HowTo",
+    name: "How to merge PDF files online for free",
+    step: [
       {
-        "@type": "Question",
-        name: "How many PDFs can I merge at once?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "There is no hard software limit on ToolKing. You can merge 2 or 50+ PDFs at once; the only limit is your device's available RAM.",
-        },
+        "@type": "HowToStep",
+        name: "Upload PDFs",
+        text: "Select or drag all the PDF documents you want to join together.",
       },
       {
-        "@type": "Question",
-        name: "Is my data safe when merging PDFs?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Absolutely. ToolKing processes your files locally in your browser. Your documents never leave your computer and are never uploaded to any server.",
-        },
+        "@type": "HowToStep",
+        name: "Arrange Order",
+        text: "Drag the file thumbnails to reorder them exactly how you want the final PDF to look.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Download Merged File",
+        text: "Click the 'Merge' button to join the data streams and download your combined PDF instantly.",
       },
     ],
   };
 
+  const faqData = [
+    {
+      q: "How many PDFs can I merge at once?",
+      a: "There is no hard software limit on ToolKing. You can merge 2 or 50+ PDFs at once; the only limit is your device's available RAM.",
+    },
+    {
+      q: "Is it safe to merge sensitive bank statements on ToolKing?",
+      a: "Absolutely. ToolKing processes your files locally in your browser. Your documents never leave your computer and are never uploaded to any server, making it 100% safe for private bank statements.",
+    },
+  ];
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqData.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+
   return (
     <article className="max-w-6xl mx-auto px-6 py-12">
-      {/* Injecting Structured Data for Google Enhancements */}
+      {/* --- SCHEMAS --- */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
+      {/* --- HEADER --- */}
       <header className="text-center mb-12">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-widest mb-4">
           <Lock className="w-3 h-3" /> Secure Local Merging
@@ -80,120 +138,168 @@ export default function PdfMergerPage() {
         <h1 className="text-4xl md:text-7xl font-black mb-6 bg-gradient-to-r from-slate-900 via-indigo-600 to-slate-900 dark:from-white dark:via-indigo-400 dark:to-white bg-clip-text text-transparent leading-[1.1]">
           Combine PDF Files <br /> Instantly
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-          Select multiple PDF documents and join them into a single file in
-          seconds. Your files <strong>never</strong> leave your computer.
+
+        <div className="flex flex-wrap justify-center items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8">
+          <span className="flex items-center gap-1">
+            <Calendar size={12} /> Updated: March 2026
+          </span>
+          <span className="w-1 h-1 bg-slate-300 rounded-full" />
+          <a
+            href="#how-to"
+            className="hover:text-indigo-600 transition-colors underline underline-offset-4 tracking-widest"
+          >
+            How to use
+          </a>
+          <span className="w-1 h-1 bg-slate-300 rounded-full" />
+          <a
+            href="#faqs"
+            className="hover:text-indigo-600 transition-colors underline underline-offset-4 tracking-widest"
+          >
+            FAQs
+          </a>
+        </div>
+
+        <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed font-medium">
+          Use this <strong>free online PDF merger</strong> to combine multiple
+          PDF files into one document instantly without losing quality or
+          compromising privacy.
         </p>
       </header>
 
       <ToolWrapper />
 
-      {/* --- INTERNAL LINKS FOR INDEXING --- */}
-      <section className="mt-20 py-10 border-y border-slate-100 dark:border-slate-900">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8 text-center italic">
-          More Image & PDF Utilities
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Link
-            href="/tools/image-compressor"
-            className="group p-6 bg-blue-500/5 hover:bg-blue-500/10 border border-blue-500/10 rounded-[2rem] transition-all flex items-center justify-between"
-          >
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-blue-600">
-                <Zap size={20} />
-              </div>
-              <div>
-                <p className="font-black text-sm uppercase tracking-tight">
-                  Image Compressor
-                </p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                  For Exam Portals
-                </p>
-              </div>
-            </div>
-            <ArrowRight
-              className="text-blue-500 group-hover:translate-x-1 transition-transform"
-              size={18}
-            />
-          </Link>
+      {/* --- MID-CONTENT INTERNAL LINKS --- */}
+      <div className="mt-16 flex flex-wrap items-center justify-center gap-6 p-8 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800 text-center">
+        <p className="text-xs font-black text-slate-400 uppercase tracking-widest">
+          Essential PDF Toolkit:
+        </p>
+        <Link
+          href="/tools/pdf-splitter"
+          className="flex items-center gap-2 text-rose-600 font-black text-sm hover:underline"
+        >
+          <Combine size={14} /> Split PDF Files
+        </Link>
+        <Link
+          href="/tools/image-to-pdf"
+          className="flex items-center gap-2 text-indigo-600 font-black text-sm hover:underline"
+        >
+          <FileText size={14} /> Image to PDF
+        </Link>
+        <Link
+          href="/tools/pdf-to-image"
+          className="flex items-center gap-2 text-blue-600 font-black text-sm hover:underline"
+        >
+          <Zap size={14} /> PDF to Image
+        </Link>
+      </div>
 
-          <Link
-            href="/tools/bulk-image-resizer"
-            className="group p-6 bg-emerald-500/5 hover:bg-emerald-500/10 border border-emerald-500/10 rounded-[2rem] transition-all flex items-center justify-between"
-          >
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-emerald-600">
-                <Scaling size={20} />
-              </div>
-              <div>
-                <p className="font-black text-sm uppercase tracking-tight">
-                  Bulk Resizer
-                </p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                  Batch Process Images
-                </p>
-              </div>
-            </div>
-            <ArrowRight
-              className="text-emerald-500 group-hover:translate-x-1 transition-transform"
-              size={18}
-            />
-          </Link>
-        </div>
-      </section>
-
-      <section className="mt-24 grid lg:grid-cols-2 gap-16 pt-10">
+      {/* --- DEEP DIVE CONTENT --- */}
+      <section id="how-to" className="mt-24 grid lg:grid-cols-2 gap-20">
         <div>
-          <h2 className="text-3xl font-black mb-6 tracking-tight text-slate-900 dark:text-white leading-tight">
-            Why Use ToolKing PDF Merger?
+          <h2 className="text-3xl font-black mb-6 tracking-tight text-slate-900 dark:text-white leading-tight italic">
+            Merge Multiple PDF Documents Offline
           </h2>
-          <div className="space-y-6">
-            <div className="flex gap-4">
-              <div className="mt-1 p-2 bg-indigo-500/10 rounded-lg text-indigo-600">
-                <FileStack className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="font-bold">Maintain Original Quality</p>
-                <p className="text-sm text-slate-500">
-                  We merge the actual data streams of your PDFs, ensuring no
-                  quality loss or compression artifacts.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-1 p-2 bg-emerald-500/10 rounded-lg text-emerald-600">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="font-bold">Privacy Guaranteed</p>
-                <p className="text-sm text-slate-500">
-                  Unlike other tools, your sensitive documents stay on your
-                  device. We don't have a database of your files.
-                </p>
-              </div>
-            </div>
+          <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed font-medium">
+            Combining documents like bank statements, medical reports, or
+            project assignments into a single file should be fast and secure.
+            Our <strong>PDF joiner tool</strong> merges actual data streams
+            locally, ensuring no compression artifacts. This{" "}
+            <strong>free online PDF merger</strong> is the safest way to manage
+            sensitive documents because your data never touches our servers.
+          </p>
+
+          <h2
+            id="use-cases"
+            className="text-2xl font-black mb-4 flex items-center gap-2 text-slate-900 dark:text-white uppercase tracking-tighter"
+          >
+            <Users size={20} className="text-indigo-500" /> Who should use this
+            PDF merger?
+          </h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+            <li className="flex items-center gap-2 text-xs text-slate-500 font-bold">
+              <CheckCircle2 size={14} className="text-indigo-500" />{" "}
+              Professionals joining reports
+            </li>
+            <li className="flex items-center gap-2 text-xs text-slate-500 font-bold">
+              <CheckCircle2 size={14} className="text-indigo-500" /> Students
+              merging assignments
+            </li>
+            <li className="flex items-center gap-2 text-xs text-slate-500 font-bold">
+              <CheckCircle2 size={14} className="text-indigo-500" /> Users
+              joining bank statements
+            </li>
+            <li className="flex items-center gap-2 text-xs text-slate-500 font-bold">
+              <CheckCircle2 size={14} className="text-indigo-500" /> Legal
+              clerks merging files
+            </li>
+          </ul>
+
+          <div className="p-6 bg-indigo-500/5 rounded-2xl border border-indigo-500/10">
+            <h2 className="text-xl font-black mb-3 flex items-center gap-2 text-indigo-600">
+              <FileStack size={20} /> Privacy-First Architecture
+            </h2>
+            <p className="text-xs text-slate-500 font-bold italic tracking-tight">
+              ToolKing supports high-resolution merging of encrypted data
+              streams without server-side storage or watermarks.
+            </p>
           </div>
         </div>
-        <div>
+
+        <div id="faqs">
           <h2 className="text-3xl font-black mb-8 tracking-tight text-slate-900 dark:text-white">
-            Frequently Asked Questions
+            Common Questions
           </h2>
-          <div className="space-y-1">
-            <FAQItem
-              question="How many PDFs can I merge?"
-              answer="There is no software limit. You can merge 2 or 50+ PDFs at once, depending on your device's RAM."
-            />
-            <FAQItem
-              question="Does it work with password-protected PDFs?"
-              answer="Currently, you must remove the password before merging. We are working on an 'Unlock PDF' tool for the future!"
-            />
-            <FAQItem
-              question="Can I change the order of files?"
-              answer="Yes! Upload them in the order you want them to appear, or remove and re-add them to adjust the sequence."
-            />
+          <div className="space-y-4">
+            {faqData.map((item, index) => (
+              <div
+                key={index}
+                className="p-6 rounded-[2rem] bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 transition-all hover:border-indigo-500/50"
+              >
+                <h3 className="font-bold text-md mb-2 flex items-center gap-2 text-indigo-600 italic">
+                  <HelpCircle className="w-4 h-4" /> {item.q}
+                </h3>
+                <p className="text-slate-500 leading-relaxed text-xs font-bold">
+                  {item.a}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 p-6 bg-amber-500/5 rounded-2xl border border-amber-500/10 flex gap-3 italic text-[10px] text-amber-600 font-black uppercase tracking-widest">
+            <Info className="shrink-0 w-4 h-4" />
+            Pro Tip: You can drag and drop file thumbnails to adjust their order
+            before merging to ensure your final document is correctly sequenced.
           </div>
         </div>
       </section>
+
+      {/* --- FOOTER --- */}
+      <footer className="mt-32 p-12 bg-indigo-600 rounded-[3.5rem] text-white text-center shadow-2xl shadow-indigo-500/20">
+        <h3 className="text-2xl font-black mb-6 italic underline decoration-indigo-400">
+          Maximize Productivity
+        </h3>
+        <div className="flex flex-wrap justify-center gap-4 md:gap-8">
+          <RelatedTool href="/tools/pdf-splitter" title="PDF Splitter" />
+          <RelatedTool href="/tools/image-compressor" title="Compressor" />
+          <RelatedTool href="/tools/age-calculator" title="Age Calc" />
+          <RelatedTool href="/tools/qr-code-generator" title="QR Gen" />
+        </div>
+        <div className="mt-12 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] opacity-50">
+          <Info className="w-3 h-3" /> ToolKing PDF Engine v2.0
+        </div>
+      </footer>
     </article>
+  );
+}
+
+function RelatedTool({ href, title }: { href: string; title: string }) {
+  return (
+    <Link
+      href={href}
+      className="group flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white hover:text-indigo-200 transition-all"
+    >
+      {title}{" "}
+      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+    </Link>
   );
 }
