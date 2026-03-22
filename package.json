@@ -15,6 +15,8 @@
     "ai": "^6.0.134",
     "browser-image-compression": "^2.0.2",
     "bwip-js": "^4.8.0",
+    "docx": "^9.6.1",
+    "file-saver": "^2.0.5",
     "framer-motion": "^12.38.0",
     "groq-sdk": "^1.1.1",
     "jspdf": "^4.2.1",
@@ -26,10 +28,12 @@
     "pdfjs-dist": "^5.5.207",
     "qrcode.react": "^4.2.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "save-as": "^0.1.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/file-saver": "^2.0.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

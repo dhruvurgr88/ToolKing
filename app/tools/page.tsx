@@ -170,6 +170,15 @@ const tools = [
     status: "Hot",
   },
   {
+    title: "PDF to Word",
+    desc: "Convert PDF documents to editable DOCX files safely in your browser.",
+    icon: <FileText className="w-6 h-6" />,
+    href: "/tools/pdf-to-word",
+    color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
+    category: "PDF",
+    status: "New", // Set to "New" to attract clicks for SEO ranking
+  },
+  {
     title: "Unlock PDF",
     desc: "Remove password protection from PDF files.",
     icon: <EyeOff className="w-6 h-6" />,

@@ -30,9 +30,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
-    // --- 🤖 AI SUITE (NEW HIGH PRIORITY) ---
+    // --- 🤖 AI SUITE ---
     {
-      url: `${baseUrl}/tools/ai-summarizer`, // 🔥 ADDED FOR SEO RANKING
+      url: `${baseUrl}/tools/ai-summarizer`,
       lastModified: currentDate,
       changeFrequency: "daily",
       priority: 0.9,
@@ -44,7 +44,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
-    // --- PDF SUITE ---
+    // --- 📄 PDF SUITE (HIGH SEO PRIORITY) ---
+    {
+      url: `${baseUrl}/tools/pdf-to-word`, // 🔥 ADDED FOR SEO RANKING
+      lastModified: currentDate,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
     {
       url: `${baseUrl}/tools/image-to-pdf`,
       lastModified: currentDate,
