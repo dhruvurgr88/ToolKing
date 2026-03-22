@@ -116,6 +116,15 @@ const tools = [
     status: "Hot",
   },
   {
+    title: "AI Summarizer",
+    desc: "Summarize long articles, essays, and reports instantly using AI.",
+    icon: <Sparkles className="w-6 h-6" />, // Or <BrainCircuit />
+    href: "/tools/ai-summarizer",
+    color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+    category: "AI", // 🔥 This matches your new AI filter category
+    status: "New",
+  },
+  {
     title: "Barcode Generator",
     desc: "Create professional Code 128 & EAN barcodes.",
     icon: <Barcode className="w-6 h-6" />,

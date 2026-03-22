@@ -30,9 +30,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    // --- 🤖 AI SUITE (NEW HIGH PRIORITY) ---
+    {
+      url: `${baseUrl}/tools/ai-summarizer`, // 🔥 ADDED FOR SEO RANKING
+      lastModified: currentDate,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
     // --- 🖼️ IMAGE SUITE ---
     {
-      url: `${baseUrl}/tools/bulk-image-resizer`, // 🔥 ADDED THIS
+      url: `${baseUrl}/tools/bulk-image-resizer`,
       lastModified: currentDate,
       changeFrequency: "weekly",
       priority: 0.8,

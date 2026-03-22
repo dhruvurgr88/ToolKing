@@ -9,10 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/groq": "^3.0.31",
+    "@ai-sdk/react": "^3.0.136",
     "@vercel/analytics": "^2.0.1",
+    "ai": "^6.0.134",
     "browser-image-compression": "^2.0.2",
     "bwip-js": "^4.8.0",
     "framer-motion": "^12.38.0",
+    "groq-sdk": "^1.1.1",
     "jspdf": "^4.2.1",
     "jszip": "^3.10.1",
     "lucide-react": "^0.577.0",
