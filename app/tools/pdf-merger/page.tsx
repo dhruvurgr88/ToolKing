@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import ToolWrapper from "../pdf-merger/ToolWrapper";
 import FAQItem from "../../components/FAQItem";
-import Link from "next/link"; // Added for SEO linking
+import Link from "next/link";
 import {
   ShieldCheck,
   Zap,
@@ -26,8 +26,53 @@ export const metadata: Metadata = {
 };
 
 export default function PdfMergerPage() {
+  // --- 🔥 SEO ENHANCEMENTS (JSON-LD) ---
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "ToolKing PDF Merger",
+    operatingSystem: "Web",
+    applicationCategory: "UtilitiesApplication",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description:
+      "Professional browser-based tool to combine multiple PDF files into a single document without server uploads.",
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "How many PDFs can I merge at once?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "There is no hard software limit on ToolKing. You can merge 2 or 50+ PDFs at once; the only limit is your device's available RAM.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is my data safe when merging PDFs?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Absolutely. ToolKing processes your files locally in your browser. Your documents never leave your computer and are never uploaded to any server.",
+        },
+      },
+    ],
+  };
+
   return (
     <article className="max-w-6xl mx-auto px-6 py-12">
+      {/* Injecting Structured Data for Google Enhancements */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <header className="text-center mb-12">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-widest mb-4">
           <Lock className="w-3 h-3" /> Secure Local Merging
@@ -43,7 +88,7 @@ export default function PdfMergerPage() {
 
       <ToolWrapper />
 
-      {/* --- 🔥 INTERNAL LINKS FOR INDEXING --- */}
+      {/* --- INTERNAL LINKS FOR INDEXING --- */}
       <section className="mt-20 py-10 border-y border-slate-100 dark:border-slate-900">
         <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8 text-center italic">
           More Image & PDF Utilities
@@ -99,7 +144,7 @@ export default function PdfMergerPage() {
 
       <section className="mt-24 grid lg:grid-cols-2 gap-16 pt-10">
         <div>
-          <h2 className="text-3xl font-black mb-6 tracking-tight text-slate-900 dark:text-white">
+          <h2 className="text-3xl font-black mb-6 tracking-tight text-slate-900 dark:text-white leading-tight">
             Why Use ToolKing PDF Merger?
           </h2>
           <div className="space-y-6">
@@ -131,20 +176,22 @@ export default function PdfMergerPage() {
         </div>
         <div>
           <h2 className="text-3xl font-black mb-8 tracking-tight text-slate-900 dark:text-white">
-            FAQs
+            Frequently Asked Questions
           </h2>
-          <FAQItem
-            question="How many PDFs can I merge?"
-            answer="There is no software limit. You can merge 2 or 50+ PDFs at once, depending on your device's RAM."
-          />
-          <FAQItem
-            question="Does it work with password-protected PDFs?"
-            answer="Currently, you must remove the password before merging. We are working on an 'Unlock PDF' tool for the future!"
-          />
-          <FAQItem
-            question="Can I change the order of files?"
-            answer="Yes! Upload them in the order you want them to appear, or remove and re-add them to adjust the sequence."
-          />
+          <div className="space-y-1">
+            <FAQItem
+              question="How many PDFs can I merge?"
+              answer="There is no software limit. You can merge 2 or 50+ PDFs at once, depending on your device's RAM."
+            />
+            <FAQItem
+              question="Does it work with password-protected PDFs?"
+              answer="Currently, you must remove the password before merging. We are working on an 'Unlock PDF' tool for the future!"
+            />
+            <FAQItem
+              question="Can I change the order of files?"
+              answer="Yes! Upload them in the order you want them to appear, or remove and re-add them to adjust the sequence."
+            />
+          </div>
         </div>
       </section>
     </article>
