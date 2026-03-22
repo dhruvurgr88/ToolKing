@@ -11,6 +11,7 @@
   "dependencies": {
     "@ai-sdk/groq": "^3.0.31",
     "@ai-sdk/react": "^3.0.136",
+    "@nutrient-sdk/viewer": "^1.13.0",
     "@vercel/analytics": "^2.0.1",
     "ai": "^6.0.134",
     "browser-image-compression": "^2.0.2",
@@ -22,6 +23,7 @@
     "jspdf": "^4.2.1",
     "jszip": "^3.10.1",
     "lucide-react": "^0.577.0",
+    "mammoth": "^1.12.0",
     "next": "16.2.0",
     "next-themes": "^0.4.6",
     "pdf-lib": "^1.17.1",

@@ -30,6 +30,7 @@ import {
   ShieldCheck,
   Frown,
   Timer,
+  FileType,
 } from "lucide-react";
 
 // 1. DATA DEFINITIONS (The complete Tool King library)
@@ -78,6 +79,15 @@ const tools = [
     color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
     category: "Developer",
     status: "Hot",
+  },
+  {
+    title: "Protect PDF",
+    desc: "Lock your PDF with a secure password using 100% private browser-side encryption.",
+    icon: <Lock className="w-6 h-6" />, // Ensure you import { Lock } from "lucide-react"
+    href: "/tools/protect-pdf",
+    color: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    category: "PDF",
+    status: "New",
   },
   {
     title: "QR Generator",
@@ -177,6 +187,15 @@ const tools = [
     color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
     category: "PDF",
     status: "New", // Set to "New" to attract clicks for SEO ranking
+  },
+  {
+    title: "Word to PDF",
+    desc: "Transform Word documents into professional, high-quality PDF files instantly.",
+    icon: <FileType className="w-6 h-6" />,
+    href: "/tools/word-to-pdf",
+    color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+    category: "PDF",
+    status: "New",
   },
   {
     title: "Unlock PDF",
