@@ -2,6 +2,10 @@ import { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
 
+/**
+ * Helper to get the actual file modification date.
+ * Uses turbopackIgnore to prevent build-time tracing warnings.
+ */
 function getFileDate(relativeFilePath: string) {
   try {
     const filePath = path.join(
@@ -12,6 +16,7 @@ function getFileDate(relativeFilePath: string) {
     const stats = fs.statSync(filePath);
     return stats.mtime;
   } catch (e) {
+    // Fallback if file is moved or doesn't exist during build
     return new Date();
   }
 }
@@ -19,28 +24,30 @@ function getFileDate(relativeFilePath: string) {
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://toolking.online";
 
-  // --- 1. PDF CATEGORY (6 Tools) ---
+  // --- 1. PDF TOOLS (7 Tools) ---
   const pdfTools = [
     { slug: "pdf-to-word", priority: 0.9 },
+    { slug: "word-to-pdf", priority: 0.9 },
     { slug: "protect-pdf", priority: 0.9 },
     { slug: "unlock-pdf", priority: 0.9 },
     { slug: "pdf-merger", priority: 0.8 },
     { slug: "pdf-splitter", priority: 0.8 },
-    { slug: "pdf-to-image", priority: 0.7 }, // ✅ Added from Image
+    { slug: "pdf-to-image", priority: 0.7 },
   ];
 
-  // --- 2. IMAGE CATEGORY (2 Tools) ---
+  // --- 2. IMAGE TOOLS (3 Tools) ---
   const imageTools = [
     { slug: "image-compressor", priority: 0.9 },
-    { slug: "image-to-pdf", priority: 0.8 }, // ✅ Added from Image
+    { slug: "image-to-pdf", priority: 0.8 },
+    { slug: "bulk-image-resizer", priority: 0.7 },
   ];
 
   // --- 3. UTILITY & BUSINESS (5 Tools) ---
   const utilityTools = [
     { slug: "age-calculator", priority: 0.7 },
-    { slug: "qr-code-generator", priority: 0.7 }, // ✅ Added from Image
-    { slug: "password-generator", priority: 0.7 }, // ✅ Added from Image
-    { slug: "url-shortener", priority: 0.6 }, // ✅ Added from Image
+    { slug: "qr-code-generator", priority: 0.7 },
+    { slug: "password-generator", priority: 0.7 },
+    { slug: "url-shortener", priority: 0.6 },
     { slug: "barcode-generator", priority: 0.6 },
   ];
 
@@ -49,7 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { slug: "word-counter", priority: 0.7 },
     { slug: "json-formatter", priority: 0.7 },
     { slug: "ai-summarizer", priority: 0.8 },
-    { slug: "case-converter", priority: 0.6 }, // ✅ Added from Image
+    { slug: "case-converter", priority: 0.6 },
   ];
 
   const allTools = [...pdfTools, ...imageTools, ...utilityTools, ...devTools];
@@ -62,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   return [
-    // Core Pages (3)
+    // --- CORE PAGES ---
     {
       url: baseUrl,
       lastModified: getFileDate("page.tsx"),
@@ -76,10 +83,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
 
-    // Dynamic Tool Pages (15+)
+    // --- DYNAMIC TOOL PAGES (19 Tools) ---
     ...toolEntries,
 
-    // Legal Pages (2)
+    // --- LEGAL PAGES ---
     {
       url: `${baseUrl}/privacy`,
       lastModified: getFileDate("privacy/page.tsx"),
