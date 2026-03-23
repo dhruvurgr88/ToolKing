@@ -107,6 +107,15 @@ const tools = [
     status: "Hot",
   },
   {
+    title: "JPG to PNG",
+    desc: "Convert JPG to PNG with transparency support.",
+    icon: <FileImage className="w-6 h-6" />,
+    href: "/tools/jpg-to-png",
+    color: "bg-blue-500/10 text-blue-600",
+    category: "Image",
+    status: "New",
+  },
+  {
     title: "Bulk Image Resizer",
     desc: "Resize multiple images at once for web and social media.",
     icon: <Layers className="w-6 h-6" />,
