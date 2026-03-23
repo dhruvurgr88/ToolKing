@@ -1,4 +1,4 @@
-import { Analytics } from "@vercel/analytics/react"; // 1. Import the component
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -18,27 +18,31 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+// 🔥 Centralized Domain for SEO consistency
+const SITE_URL = "https://toolking.online";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "ToolKing | Premium PDF & Online Utility Tools",
+    default: "ToolKing | Free Private Online PDF & Utility Tools",
     template: "%s | ToolKing",
   },
   description:
-    "Free, high-quality online tools for PDF conversion, word counting, and image processing. Fast, private, and secure browser-based tools.",
+    "Free, high-quality online tools for PDF conversion, protection, and image processing. Fast, private, and secure browser-based tools with no server uploads.",
   keywords: [
     "PDF converter",
     "word counter",
+    "protect pdf online",
     "image to pdf",
     "free online tools",
     "ToolKing",
   ],
   authors: [{ name: "ToolKing Team" }],
   creator: "ToolKing",
-  metadataBase: new URL("https://vidyaos.online"),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://vidyaos.online",
+    url: SITE_URL,
     siteName: "ToolKing",
     title: "ToolKing | Professional Web Utilities",
     description:
@@ -50,7 +54,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ToolKing | Premium Online Tools",
-    description: "Convert, edit, and analyze files instantly.",
+    description:
+      "Convert, edit, and analyze files instantly with zero data retention.",
   },
   icons: {
     icon: "/favicon.ico",
@@ -75,38 +80,40 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
-      {/* IMPORTANT: We removed the 'bg-white dark:bg-[#020617]' classes here 
-          because they are now handled automatically by the CSS variables 
-          in your globals.css. This prevents "specificity wars".
-      */}
       <body className="min-h-full flex flex-col transition-colors duration-300">
+        {/* Google Tag Manager / Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-VJNH65YGLH"
           strategy="afterInteractive"
         />
         <Script id="ga-script" strategy="afterInteractive">
           {`
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-VJNH65YGLH');
-    `}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-VJNH65YGLH');
+          `}
         </Script>
+
         <Providers>
           <Navbar />
 
           <main className="flex-grow pt-20 md:pt-24 relative overflow-x-hidden">
-            {/* Dynamic background glow - opacity changes via CSS variables */}
+            {/* Background Glow - Maintains your current design */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[400px] bg-indigo-500/10 dark:bg-indigo-600/5 blur-[120px] rounded-full -z-10 pointer-events-none" />
 
             {children}
           </main>
 
-          <footer className="border-t border-slate-200 dark:border-slate-900 py-8 text-center text-slate-500 text-sm transition-colors">
-            <p>
-              © {new Date().getFullYear()} ToolKing. Built for privacy and
-              speed.
-            </p>
+          <footer className="border-t border-slate-200 dark:border-slate-900 py-12 transition-colors">
+            <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-4">
+              <div className="font-black text-xl tracking-tighter italic uppercase text-slate-900 dark:text-white">
+                ToolKing<span className="text-indigo-600">.online</span>
+              </div>
+              <p className="text-slate-500 text-[10px] uppercase font-black tracking-[0.4em]">
+                © {new Date().getFullYear()} Build with Privacy First.
+              </p>
+            </div>
           </footer>
         </Providers>
         <Analytics />
