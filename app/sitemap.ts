@@ -1,129 +1,86 @@
 import { MetadataRoute } from "next";
+import fs from "fs";
+import path from "path";
+
+/**
+ * Helper to get the actual file modification date from the system.
+ * This ensures Google only sees a 'refresh' when you actually change code.
+ */
+function getFileDate(relativeFilePath: string) {
+  try {
+    const filePath = path.join(process.cwd(), relativeFilePath);
+    const stats = fs.statSync(filePath);
+    return stats.mtime;
+  } catch (e) {
+    // Fallback to current date if file path is renamed or missing
+    return new Date();
+  }
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://toolking.online";
-  const currentDate = new Date();
+
+  // --- 1. DEFINE ALL TOOLS BY CATEGORY ---
+
+  const pdfTools = [
+    { slug: "pdf-to-word", priority: 0.9 },
+    { slug: "protect-pdf", priority: 0.9 },
+    { slug: "unlock-pdf", priority: 0.8 },
+    { slug: "pdf-merger", priority: 0.8 },
+    { slug: "pdf-splitter", priority: 0.8 },
+    { slug: "jpg-to-pdf", priority: 0.7 },
+    { slug: "png-to-pdf", priority: 0.7 },
+  ];
+
+  const imageTools = [
+    { slug: "image-compressor", priority: 0.9 },
+    { slug: "image-resizer", priority: 0.7 },
+    { slug: "webp-to-jpg", priority: 0.7 },
+  ];
+
+  const textTools = [
+    { slug: "word-counter", priority: 0.7 },
+    { slug: "case-converter", priority: 0.6 },
+    { slug: "lorem-ipsum-generator", priority: 0.6 },
+  ];
+
+  // Combine all tools into a single flat list for mapping
+  const allTools = [...pdfTools, ...imageTools, ...textTools];
+
+  // --- 2. GENERATE DYNAMIC ENTRIES ---
+
+  const toolEntries = allTools.map((tool) => ({
+    url: `${baseUrl}/tools/${tool.slug}`,
+    lastModified: getFileDate(`app/tools/${tool.slug}/page.tsx`),
+    changeFrequency: "monthly" as const,
+    priority: tool.priority,
+  }));
+
+  // --- 3. RETURN FINAL SITEMAP ---
 
   return [
+    // Core Platform Pages
     {
       url: baseUrl,
-      lastModified: currentDate,
-      changeFrequency: "daily",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/tools`,
-      lastModified: currentDate,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    // --- 🔥 EXAM SPECIAL TOOLS (TOP PRIORITY) ---
-    {
-      url: `${baseUrl}/tools/age-calculator`,
-      lastModified: currentDate,
+      lastModified: getFileDate("app/page.tsx"),
       changeFrequency: "daily",
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/tools/image-compressor`,
-      lastModified: currentDate,
+      url: `${baseUrl}/tools`,
+      lastModified: getFileDate("app/tools/page.tsx"),
       changeFrequency: "weekly",
       priority: 0.9,
     },
-    // --- 🤖 AI SUITE ---
-    {
-      url: `${baseUrl}/tools/ai-summarizer`,
-      lastModified: currentDate,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    // --- 🖼️ IMAGE SUITE ---
-    {
-      url: `${baseUrl}/tools/bulk-image-resizer`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    // --- 📄 PDF SUITE (HIGH SEO PRIORITY) ---
-    {
-      url: `${baseUrl}/tools/pdf-to-word`, // 🔥 ADDED FOR SEO RANKING
-      lastModified: currentDate,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/tools/image-to-pdf`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/tools/pdf-merger`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/tools/pdf-splitter`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/tools/pdf-to-image`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    // --- TEXT & DEVELOPER TOOLS ---
-    {
-      url: `${baseUrl}/tools/word-counter`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/tools/case-converter`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/tools/json-formatter`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    // --- UTILITIES ---
-    {
-      url: `${baseUrl}/tools/qr-code-generator`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/tools/barcode-generator`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/tools/url-shortener`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/tools/password-generator`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    // --- LEGAL ---
+
+    // Spread the dynamically generated tool entries
+    ...toolEntries,
+
+    // Legal & Footer
     {
       url: `${baseUrl}/privacy`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
+      lastModified: getFileDate("app/privacy/page.tsx"),
+      changeFrequency: "yearly",
       priority: 0.3,
     },
   ];
