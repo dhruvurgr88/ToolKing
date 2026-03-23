@@ -25,6 +25,7 @@ import {
   Languages,
   EyeOff,
   CalendarDays,
+  Unlock,
 } from "lucide-react";
 
 const tools = [
@@ -43,6 +44,15 @@ const tools = [
     icon: <Lock className="w-6 h-6" />,
     href: "/tools/protect-pdf",
     color: "bg-amber-500/10 text-amber-600",
+    category: "PDF",
+    status: "New",
+  },
+  {
+    title: "Unlock PDF",
+    desc: "Remove password protection and restrictions from encrypted PDF files.",
+    icon: <Unlock className="w-6 h-6" />, // Ensure Unlock is imported from lucide-react
+    href: "/tools/unlock-pdf",
+    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
     category: "PDF",
     status: "New",
   },

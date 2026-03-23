@@ -3,16 +3,22 @@ import fs from "fs";
 import path from "path";
 
 /**
- * Helper to get the actual file modification date from the system.
- * This ensures Google only sees a 'refresh' when you actually change code.
+ * Helper to get the actual file modification date.
+ * Added Turbopack ignore and static scoping to resolve NFT list warnings.
  */
 function getFileDate(relativeFilePath: string) {
   try {
-    const filePath = path.join(process.cwd(), relativeFilePath);
+    // 🔥 FIX: Added turbopackIgnore to prevent tracing the entire project root
+    const filePath = path.join(
+      /* turbopackIgnore: true */ process.cwd(),
+      "app",
+      relativeFilePath,
+    );
+
     const stats = fs.statSync(filePath);
     return stats.mtime;
   } catch (e) {
-    // Fallback to current date if file path is renamed or missing
+    // Fallback if file is moved or doesn't exist during build
     return new Date();
   }
 }
@@ -20,66 +26,64 @@ function getFileDate(relativeFilePath: string) {
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://toolking.online";
 
-  // --- 1. DEFINE ALL TOOLS BY CATEGORY ---
-
+  // --- 1. DEFINE ALL TOOLS (Including Unlock PDF) ---
   const pdfTools = [
     { slug: "pdf-to-word", priority: 0.9 },
     { slug: "protect-pdf", priority: 0.9 },
-    { slug: "unlock-pdf", priority: 0.8 },
+    { slug: "unlock-pdf", priority: 0.9 }, // 🔥 Added
     { slug: "pdf-merger", priority: 0.8 },
     { slug: "pdf-splitter", priority: 0.8 },
     { slug: "jpg-to-pdf", priority: 0.7 },
-    { slug: "png-to-pdf", priority: 0.7 },
   ];
 
   const imageTools = [
     { slug: "image-compressor", priority: 0.9 },
     { slug: "image-resizer", priority: 0.7 },
-    { slug: "webp-to-jpg", priority: 0.7 },
   ];
 
-  const textTools = [
+  const otherTools = [
     { slug: "word-counter", priority: 0.7 },
-    { slug: "case-converter", priority: 0.6 },
-    { slug: "lorem-ipsum-generator", priority: 0.6 },
+    { slug: "age-calculator", priority: 0.7 },
+    { slug: "json-formatter", priority: 0.6 },
   ];
 
-  // Combine all tools into a single flat list for mapping
-  const allTools = [...pdfTools, ...imageTools, ...textTools];
+  const allTools = [...pdfTools, ...imageTools, ...otherTools];
 
-  // --- 2. GENERATE DYNAMIC ENTRIES ---
-
+  // --- 2. MAP DYNAMIC ENTRIES ---
   const toolEntries = allTools.map((tool) => ({
     url: `${baseUrl}/tools/${tool.slug}`,
-    lastModified: getFileDate(`app/tools/${tool.slug}/page.tsx`),
+    // Note: We removed 'app/' from the path because getFileDate now adds it
+    lastModified: getFileDate(`tools/${tool.slug}/page.tsx`),
     changeFrequency: "monthly" as const,
     priority: tool.priority,
   }));
 
-  // --- 3. RETURN FINAL SITEMAP ---
-
+  // --- 3. RETURN FULL SITEMAP ---
   return [
-    // Core Platform Pages
     {
       url: baseUrl,
-      lastModified: getFileDate("app/page.tsx"),
+      lastModified: getFileDate("page.tsx"),
       changeFrequency: "daily",
       priority: 1.0,
     },
     {
       url: `${baseUrl}/tools`,
-      lastModified: getFileDate("app/tools/page.tsx"),
+      lastModified: getFileDate("tools/page.tsx"),
       changeFrequency: "weekly",
       priority: 0.9,
     },
 
-    // Spread the dynamically generated tool entries
     ...toolEntries,
 
-    // Legal & Footer
     {
       url: `${baseUrl}/privacy`,
-      lastModified: getFileDate("app/privacy/page.tsx"),
+      lastModified: getFileDate("privacy/page.tsx"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: getFileDate("terms/page.tsx"),
       changeFrequency: "yearly",
       priority: 0.3,
     },
