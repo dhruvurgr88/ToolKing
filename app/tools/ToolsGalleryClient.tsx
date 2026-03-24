@@ -52,7 +52,7 @@ const tools = [
     title: "Protect PDF",
     desc: "Lock PDF with secure browser-side encryption.",
     icon: <Lock className="w-6 h-6" />,
-    href: "/tools/protect-pdf",
+    href: "/tools/protect-pdf-with-password-online",
     color: "bg-amber-500/10 text-amber-600",
     category: "PDF",
     status: "Secure",
