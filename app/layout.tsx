@@ -74,12 +74,47 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // --- 🍞 GLOBAL BREADCRUMB SCHEMA ---
+  const globalBreadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: `${SITE_URL}/tools`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Blog",
+        item: `${SITE_URL}/blog`,
+      },
+    ],
+  };
+
   return (
     <html
       lang="en"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
+      <head>
+        {/* --- SEO BREADCRUMB INJECTION --- */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(globalBreadcrumbSchema),
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col transition-colors duration-300">
         {/* Google Tag Manager / Analytics */}
         <Script
