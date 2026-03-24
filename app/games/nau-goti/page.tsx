@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { RotateCcw, Trophy, Zap, ShieldCheck } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { RotateCcw, Trophy, Zap, ShieldCheck, Clock } from "lucide-react";
 
 // --- 🎮 CONSTANTS ---
 const points = [
@@ -86,6 +86,33 @@ export default function NauGotiPage() {
   const [removeMode, setRemoveMode] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
 
+  // --- TIMER STATE ---
+  const [timeLeft, setTimeLeft] = useState(30);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const switchTurn = () => {
+    if (removeMode) setRemoveMode(false);
+    setSelected(null);
+    setPlayer((prev) => (prev === "P1" ? "P2" : "P1"));
+    setTimeLeft(30);
+  };
+
+  useEffect(() => {
+    if (winner) return;
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          switchTurn();
+          return 30;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [player, removeMode, winner]);
+
   const isPieceInMill = (tempBoard: (string | null)[], index: number) => {
     const p = tempBoard[index];
     if (!p) return false;
@@ -103,6 +130,7 @@ export default function NauGotiPage() {
         setBoard(newBoard);
         setRemoveMode(false);
         setPlayer(player === "P1" ? "P2" : "P1");
+        setTimeLeft(30);
         if (
           phase === "moving" &&
           newBoard.filter((p) => p === (player === "P1" ? "P2" : "P1")).length <
@@ -119,10 +147,13 @@ export default function NauGotiPage() {
       setBoard(newBoard);
       const newToPlace = { ...toPlace, [player]: toPlace[player] - 1 };
       setToPlace(newToPlace);
-      if (isPieceInMill(newBoard, i)) setRemoveMode(true);
-      else {
+      if (isPieceInMill(newBoard, i)) {
+        setRemoveMode(true);
+        setTimeLeft(30);
+      } else {
         if (newToPlace.P1 === 0 && newToPlace.P2 === 0) setPhase("moving");
         setPlayer(player === "P1" ? "P2" : "P1");
+        setTimeLeft(30);
       }
     } else {
       if (selected === null) {
@@ -133,8 +164,13 @@ export default function NauGotiPage() {
           newBoard[selected] = null;
           newBoard[i] = player;
           setBoard(newBoard);
-          if (isPieceInMill(newBoard, i)) setRemoveMode(true);
-          else setPlayer(player === "P1" ? "P2" : "P1");
+          if (isPieceInMill(newBoard, i)) {
+            setRemoveMode(true);
+            setTimeLeft(30);
+          } else {
+            setPlayer(player === "P1" ? "P2" : "P1");
+            setTimeLeft(30);
+          }
         }
         setSelected(null);
       }
@@ -148,157 +184,176 @@ export default function NauGotiPage() {
     setWinner(null);
     setRemoveMode(false);
     setPlayer("P1");
+    setTimeLeft(30);
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#020617] pt-24 pb-12 px-4 selection:bg-indigo-500">
-      <div className="max-w-xl mx-auto flex flex-col gap-6">
-        {/* --- PREMIUM HEADER --- */}
-        <header className="flex items-center justify-between bg-white dark:bg-slate-900 p-6 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-xl">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#020617] py-8 px-4 flex flex-col items-center">
+      {/* LAYOUT FIX: 
+          1. max-w-md (approx 448px) ensures it doesn't get too wide on laptop.
+          2. w-full ensures it takes full width on mobile. 
+      */}
+      <div className="w-full max-w-md flex flex-col gap-5">
+        {/* --- HEADER --- */}
+        <header className="flex items-center justify-between bg-white dark:bg-slate-900 p-5 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-xl">
           <div className="flex flex-col">
-            <h1 className="text-3xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white leading-none">
+            <h1 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white leading-none">
               Nau <span className="text-indigo-600">Goti</span>
             </h1>
-            <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">
+            <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-1">
               9 Beads Strategy
             </p>
           </div>
-          <button
-            onClick={resetGame}
-            className="p-4 bg-slate-900 dark:bg-white text-white dark:text-black rounded-2xl hover:bg-indigo-600 hover:text-white transition-colors"
-          >
-            <RotateCcw size={20} />
-          </button>
+          <div className="flex items-center gap-3">
+            <div
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border ${timeLeft < 10 ? "bg-red-500 text-white animate-pulse" : "bg-slate-100 dark:bg-slate-800 dark:text-white"}`}
+            >
+              <Clock size={14} />
+              <span className="font-mono font-bold text-sm">{timeLeft}s</span>
+            </div>
+            <button
+              onClick={resetGame}
+              className="p-3 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl hover:bg-indigo-600 hover:text-white transition-all"
+            >
+              <RotateCcw size={18} />
+            </button>
+          </div>
         </header>
 
         {/* --- STATUS BARS --- */}
         <div className="grid grid-cols-2 gap-3">
-          <div
-            className={`p-4 rounded-3xl border transition-all duration-500 flex flex-col items-center ${player === "P1" ? "bg-red-500/10 border-red-500 shadow-lg scale-105" : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 opacity-40"}`}
-          >
-            <span className="text-[9px] font-black uppercase text-red-500 tracking-widest">
-              Player 1
-            </span>
-            <div className="flex flex-wrap justify-center gap-1.5 mt-2">
-              {Array.from({ length: toPlace.P1 }).map((_, i) => (
-                <div key={i} className="w-2 h-2 rounded-full bg-red-500" />
-              ))}
-            </div>
-          </div>
-          <div
-            className={`p-4 rounded-3xl border transition-all duration-500 flex flex-col items-center ${player === "P2" ? "bg-blue-600/10 border-blue-600 shadow-lg scale-105" : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 opacity-40"}`}
-          >
-            <span className="text-[9px] font-black uppercase text-blue-600 tracking-widest">
-              Player 2
-            </span>
-            <div className="flex flex-wrap justify-center gap-1.5 mt-2">
-              {Array.from({ length: toPlace.P2 }).map((_, i) => (
-                <div key={i} className="w-2 h-2 rounded-full bg-blue-600" />
-              ))}
-            </div>
-          </div>
+          <PlayerCard
+            active={player === "P1"}
+            label="Player 1"
+            color="bg-red-500"
+            count={toPlace.P1}
+          />
+          <PlayerCard
+            active={player === "P2"}
+            label="Player 2"
+            color="bg-blue-600"
+            count={toPlace.P2}
+          />
         </div>
 
         {/* --- GAME BOARD --- */}
-        <div className="relative group">
-          <div className="relative aspect-square w-full bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-200 dark:border-slate-800 shadow-2xl p-6 md:p-10 flex items-center justify-center">
-            {/* Background Status Text */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5 select-none overflow-hidden">
-              <span className="text-[120px] font-black uppercase italic tracking-tighter text-slate-400">
-                {removeMode ? "KILL" : phase}
-              </span>
-            </div>
-
-            <svg
-              viewBox="0 0 300 300"
-              className="w-full h-full relative z-10 overflow-visible"
-            >
-              {/* Board Lines */}
-              <g
-                stroke="#94a3b8"
-                strokeWidth="2.5"
-                fill="none"
-                className="dark:stroke-slate-700"
-              >
-                <rect x="20" y="20" width="260" height="260" />
-                <rect x="60" y="60" width="180" height="180" />
-                <rect x="100" y="100" width="100" height="100" />
-                <line x1="150" y1="20" x2="150" y2="100" />
-                <line x1="150" y1="200" x2="150" y2="280" />
-                <line x1="20" y1="150" x2="100" y2="150" />
-                <line x1="200" y1="150" x2="280" y2="150" />
-              </g>
-
-              {points.map(([x, y], i) => {
-                // Determine Colors - Hardcoded Hex for absolute consistency
-                let fillColor = "#f1f5f9"; // Default Light Mode Gray
-                if (board[i] === "P1") fillColor = "#ef4444"; // Red
-                if (board[i] === "P2") fillColor = "#2563eb"; // Blue
-
-                // Set Dark Mode Empty Color
-                const isDarkMode =
-                  typeof window !== "undefined" &&
-                  document.documentElement.classList.contains("dark");
-                if (board[i] === null && isDarkMode) fillColor = "#1e293b";
-
-                const isSelected = selected === i;
-
-                return (
-                  <circle
-                    key={i}
-                    cx={x}
-                    cy={y}
-                    r={isSelected ? 16 : 13}
-                    onClick={() => handlePress(i)}
-                    fill={fillColor}
-                    stroke={isSelected ? "#fbbf24" : "#94a3b8"}
-                    strokeWidth={isSelected ? 4 : 1.5}
-                    style={{
-                      transition: "fill 0.2s, stroke 0.2s, stroke-width 0.2s",
-                    }}
-                    className="cursor-pointer hover:brightness-110 active:opacity-80"
-                  />
-                );
-              })}
-            </svg>
+        <div className="relative w-full aspect-square bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-2xl p-4 flex items-center justify-center overflow-hidden">
+          {/* Background Text Overlay */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] select-none">
+            <span className="text-[100px] font-black uppercase italic">
+              {removeMode ? "KILL" : phase}
+            </span>
           </div>
+
+          <svg
+            viewBox="0 0 300 300"
+            className="w-full h-full relative z-10 overflow-visible"
+          >
+            <g
+              stroke="#94a3b8"
+              strokeWidth="2.5"
+              fill="none"
+              className="dark:stroke-slate-700"
+            >
+              <rect x="20" y="20" width="260" height="260" />
+              <rect x="60" y="60" width="180" height="180" />
+              <rect x="100" y="100" width="100" height="100" />
+              <line x1="150" y1="20" x2="150" y2="100" />
+              <line x1="150" y1="200" x2="150" y2="280" />
+              <line x1="20" y1="150" x2="100" y2="150" />
+              <line x1="200" y1="150" x2="280" y2="150" />
+            </g>
+
+            {points.map(([x, y], i) => {
+              const isSelected = selected === i;
+              let fill =
+                board[i] === "P1"
+                  ? "#ef4444"
+                  : board[i] === "P2"
+                    ? "#2563eb"
+                    : "transparent";
+
+              return (
+                <circle
+                  key={i}
+                  cx={x}
+                  cy={y}
+                  r={isSelected ? 16 : 13}
+                  onClick={() => handlePress(i)}
+                  fill={
+                    fill === "transparent" ? "rgba(241, 245, 249, 0.5)" : fill
+                  }
+                  stroke={isSelected ? "#fbbf24" : "#94a3b8"}
+                  strokeWidth={isSelected ? 4 : 1.5}
+                  className="cursor-pointer transition-all hover:brightness-110 active:scale-90"
+                />
+              );
+            })}
+          </svg>
+
+          {/* Winner Message */}
+          {winner && (
+            <div className="absolute inset-0 z-20 bg-indigo-600/90 flex flex-col items-center justify-center text-white text-center p-6">
+              <Trophy size={60} className="mb-4 text-yellow-400" />
+              <h2 className="text-3xl font-black uppercase">{winner} WINS!</h2>
+              <button
+                onClick={resetGame}
+                className="mt-4 px-6 py-2 bg-white text-indigo-600 rounded-full font-bold"
+              >
+                Play Again
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* --- TURN ACTION BAR --- */}
+        {/* --- ACTION BAR --- */}
         <div
-          className={`p-6 rounded-[2rem] text-center border shadow-lg transition-all duration-500 ${removeMode ? "bg-amber-500 border-amber-400 text-white animate-pulse" : "bg-slate-900 dark:bg-white text-white dark:text-black border-transparent"}`}
+          className={`p-5 rounded-3xl text-center border shadow-md transition-all ${removeMode ? "bg-amber-500 text-white animate-pulse border-amber-400" : "bg-slate-900 dark:bg-white text-white dark:text-black border-transparent"}`}
         >
-          <p className="text-[10px] font-black uppercase tracking-[0.4em]">
-            {winner
-              ? `🏆 ${winner} VICTORY`
-              : removeMode
-                ? "⚡ STRIKE ENEMY PIECE"
-                : `${player === "P1" ? "RED" : "BLUE"} TO MOVE`}
+          <p className="text-[10px] font-black uppercase tracking-[0.3em]">
+            {removeMode
+              ? "STRIKE ENEMY"
+              : `${player === "P1" ? "RED" : "BLUE"} TURN`}
           </p>
         </div>
 
-        {/* --- TRUST BADGES --- */}
-        <div className="grid grid-cols-3 gap-3">
-          <div className="bg-white/50 dark:bg-slate-900/50 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 flex flex-col items-center gap-1 text-slate-400">
-            <ShieldCheck size={14} />
-            <span className="text-[8px] font-black uppercase tracking-widest">
-              Private
-            </span>
-          </div>
-          <div className="bg-white/50 dark:bg-slate-900/50 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 flex flex-col items-center gap-1 text-slate-400">
-            <Zap size={14} />
-            <span className="text-[8px] font-black uppercase tracking-widest">
-              Local
-            </span>
-          </div>
-          <div className="bg-white/50 dark:bg-slate-900/50 p-4 rounded-3xl border border-slate-200 dark:border-slate-800 flex flex-col items-center gap-1 text-slate-400">
-            <Trophy size={14} />
-            <span className="text-[8px] font-black uppercase tracking-widest">
-              No Ads
-            </span>
-          </div>
+        {/* --- FOOTER --- */}
+        <div className="grid grid-cols-3 gap-2">
+          <Badge icon={<ShieldCheck size={12} />} label="Secure" />
+          <Badge icon={<Zap size={12} />} label="Fast" />
+          <Badge icon={<Trophy size={12} />} label="No Ads" />
         </div>
       </div>
+    </div>
+  );
+}
+
+function PlayerCard({ active, label, color, count }: any) {
+  return (
+    <div
+      className={`p-4 rounded-[2rem] border transition-all flex flex-col items-center ${active ? "bg-white dark:bg-slate-900 border-indigo-500 shadow-lg scale-105" : "bg-white/50 dark:bg-slate-900/50 border-transparent opacity-40"}`}
+    >
+      <span
+        className={`text-[9px] font-black uppercase tracking-wider ${active ? "text-indigo-600" : "text-slate-400"}`}
+      >
+        {label}
+      </span>
+      <div className="flex flex-wrap justify-center gap-1 mt-2">
+        {Array.from({ length: count }).map((_, i) => (
+          <div key={i} className={`w-2 h-2 rounded-full ${color}`} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Badge({ icon, label }: any) {
+  return (
+    <div className="bg-white dark:bg-slate-900 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center gap-1 text-slate-400">
+      {icon}
+      <span className="text-[7px] font-black uppercase tracking-widest">
+        {label}
+      </span>
     </div>
   );
 }
