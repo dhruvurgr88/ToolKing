@@ -4,7 +4,6 @@ import {
   ArrowRight,
   AlertTriangle,
   CheckCircle,
-  ShieldCheck,
   Zap,
   Info,
 } from "lucide-react";
@@ -19,18 +18,76 @@ export const metadata = {
 };
 
 export default function BlogSSC() {
-  // ✅ JSON-LD for How-To Schema (Huge for SEO)
+  const baseUrl = "https://toolking.online";
+
+  // --- 🛠️ 1. HOW-TO SCHEMA ---
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
     name: "How to Compress Image to 20KB for SSC",
+    description:
+      "Follow these steps to compress your govt exam photos to exactly 20KB without losing quality.",
     step: [
       {
         "@type": "HowToStep",
-        text: "Upload your photo to ToolKing Image Compressor.",
+        url: `${baseUrl}/blog/compress-image-20kb-ssc#step1`,
+        text: "Go to ToolKing Image Compressor and upload your photo.",
       },
-      { "@type": "HowToStep", text: "Set the target file size to 20KB." },
-      { "@type": "HowToStep", text: "Download the optimized JPG file." },
+      {
+        "@type": "HowToStep",
+        url: `${baseUrl}/blog/compress-image-20kb-ssc#step2`,
+        text: "Set the target file size to 20KB in the compression settings.",
+      },
+      {
+        "@type": "HowToStep",
+        url: `${baseUrl}/blog/compress-image-20kb-ssc#step3`,
+        text: "Click compress and download the optimized JPG file.",
+      },
+    ],
+  };
+
+  // --- 🍞 2. BREADCRUMB SCHEMA (Google Nav) ---
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${baseUrl}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Compress Image to 20KB",
+        item: `${baseUrl}/blog/compress-image-20kb-ssc`,
+      },
+    ],
+  };
+
+  // --- ❓ 3. FAQ SCHEMA (Google Dropdowns) ---
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Can I compress images without losing quality?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, ToolKing uses Smart Quantization to prioritize facial features and text clarity while reducing file size.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is ToolKing safe for my ID photos?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Absolutely. ToolKing uses browser-side processing, meaning your images never leave your computer or reach any server.",
+        },
+      },
     ],
   };
 
@@ -40,9 +97,18 @@ export default function BlogSSC() {
       date="March 2026"
       category="Exam Prep"
     >
+      {/* --- INJECT ALL SCHEMAS --- */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       {/* --- URGENCY SECTION --- */}
@@ -61,7 +127,7 @@ export default function BlogSSC() {
       </section>
 
       {/* --- MAIN GUIDE --- */}
-      <h2>The Exact-Size Hack (Step-by-Step)</h2>
+      <h2 id="step-by-step">The Exact-Size Hack (Step-by-Step)</h2>
       <p>
         To avoid rejection, you need a compressor that understands{" "}
         <strong>KB Targeting</strong>. Follow these steps to get a perfect
@@ -120,18 +186,16 @@ export default function BlogSSC() {
       </h2>
       <ul>
         <li>
-          <strong>Format:</strong> Always use <code>.jpg</code> or{" "}
-          <code>.jpeg</code>. Most government portals (SSC, UPSC, IBPS) do not
-          accept <code>.png</code> or <code>.webp</code>.
+          <strong>Format:</strong> Always use <code>.jpg</code>. Most portals do
+          not accept <code>.png</code>.
         </li>
         <li>
-          <strong>Background:</strong> Use a plain white background. It
-          compresses more efficiently, allowing for higher facial detail at
-          lower KB sizes.
+          <strong>Background:</strong> Use a plain white background for better
+          facial detail at low KB.
         </li>
         <li>
-          <strong>Signature Ink:</strong> Use a black gel pen on white paper.
-          Blue ink sometimes loses contrast during heavy compression.
+          <strong>Signature:</strong> Use a black gel pen on white paper for the
+          best contrast.
         </li>
       </ul>
 
@@ -147,9 +211,8 @@ export default function BlogSSC() {
               Can I compress without losing quality?
             </h4>
             <p className="text-xs text-slate-500 leading-relaxed">
-              While all compression involves some data loss, our "Smart
-              Quantization" algorithm prioritizes facial features and text
-              clarity over background data.
+              ToolKing uses Smart Quantization to prioritize facial features and
+              text clarity while reducing data.
             </p>
           </div>
           <div>
@@ -157,8 +220,8 @@ export default function BlogSSC() {
               Is it safe to upload my photo?
             </h4>
             <p className="text-xs text-slate-500 leading-relaxed">
-              ToolKing uses <strong>Client-Side Processing</strong>. Your images
-              never leave your computer or reach our servers. 100% Privacy.
+              Yes. ToolKing uses 100% Client-Side Processing. Your images never
+              leave your computer.
             </p>
           </div>
         </div>

@@ -3,9 +3,9 @@ import Link from "next/link";
 import {
   CheckCircle2,
   AlertCircle,
-  FileSpreadsheet,
   Zap,
   ExternalLink,
+  Info,
 } from "lucide-react";
 
 export const metadata = {
@@ -18,12 +18,77 @@ export const metadata = {
 };
 
 export default function BlogGuide() {
+  const baseUrl = "https://toolking.online";
+
+  // --- 🍞 1. BREADCRUMB SCHEMA ---
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${baseUrl}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Exam Image Guide",
+        item: `${baseUrl}/blog/govt-exam-image-size-guide`,
+      },
+    ],
+  };
+
+  // --- ❓ 2. FAQ SCHEMA ---
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is the photo size for SSC CGL 2026?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "For SSC CGL, the photo must be between 20KB and 50KB with dimensions of 3.5cm x 4.5cm. The signature must be between 10KB and 20KB.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can I use a blue background for government exam photos?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Most exams like SSC and UPSC prefer a plain white background. While some allow light blue, white is the safest option to avoid rejection.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What happens if my image is slightly over 50KB?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Most portal servers will automatically reject the file. It is recommended to compress your image to roughly 35-40KB to ensure it stays safely within the 20-50KB limit.",
+        },
+      },
+    ],
+  };
+
   return (
     <BlogPost
       title="The 2026 Govt Exam Image Cheat Sheet"
       date="March 2026"
       category="Resources"
     >
+      {/* --- INJECT SCHEMAS --- */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <p className="lead">
         Understanding the <strong>"Digital Gatekeeper"</strong> is key to a
         successful application. Every year, thousands of forms are rejected
@@ -122,6 +187,35 @@ export default function BlogGuide() {
         </div>
       </section>
 
+      {/* --- FAQ SECTION --- */}
+      <section className="mt-16 p-8 bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800">
+        <h3 className="!mt-0 mb-6 flex items-center gap-2">
+          <Info size={20} className="text-indigo-500" /> Common Questions
+        </h3>
+        <div className="space-y-6">
+          <div>
+            <h4 className="text-sm font-black uppercase text-slate-900 dark:text-white">
+              Why is my photo being rejected?
+            </h4>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Most rejections occur because the file size is either below 20KB
+              or above 50KB. Use our tool to hit exactly 35KB for maximum
+              safety.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-sm font-black uppercase text-slate-900 dark:text-white">
+              Which format is best for Govt Forms?
+            </h4>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Always use .JPG or .JPEG. PNG files are often rejected due to
+              larger file sizes and metadata incompatible with older govt
+              servers.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <h2>Pro Tips for Flawless Submission</h2>
       <p>
         When you use our{" "}
@@ -151,7 +245,6 @@ export default function BlogGuide() {
   );
 }
 
-// Helper Table Row Component
 function TableRow({
   body,
   photo,
