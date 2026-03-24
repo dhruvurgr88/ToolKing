@@ -6,7 +6,9 @@ export const metadata: Metadata = {
   title: "Protect PDF with Password Online | 100% Private & Secure | ToolKing",
   description:
     "Encrypt and protect your PDF files with a strong password. Local browser-based AES-256 encryption means your files and passwords never leave your device.",
-  alternates: { canonical: "https://toolking.online/tools/protect-pdf" },
+  alternates: {
+    canonical: "https://toolking.online/tools/protect-pdf-with-password-online",
+  },
   keywords: [
     "protect pdf with password",
     "encrypt pdf online free",
@@ -73,7 +75,7 @@ export default function ProtectPdfPage() {
         "@type": "ListItem",
         position: 3,
         name: "Protect PDF",
-        item: "https://toolking.online/tools/protect-pdf",
+        item: "https://toolking.online/tools/protect-pdf-with-password-online",
       },
     ],
   };
