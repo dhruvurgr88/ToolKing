@@ -211,6 +211,12 @@ export default function HomePage() {
               TOOLS
             </Link>
             <Link
+              href="/about"
+              className="hover:text-indigo-600 transition-colors"
+            >
+              ABOUT
+            </Link>
+            <Link
               href="/privacy"
               className="hover:text-indigo-600 transition-colors"
             >
@@ -222,13 +228,6 @@ export default function HomePage() {
             >
               TERMS
             </Link>
-            <a
-              href="https://vidyaos.online"
-              target="_blank"
-              className="hover:text-emerald-500 transition-colors"
-            >
-              VIDYAOS
-            </a>
           </div>
         </div>
         <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-900 flex flex-col md:flex-row justify-between gap-4">
