@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pdfTools = [
     { slug: "pdf-to-word", priority: 0.9 },
     { slug: "word-to-pdf", priority: 0.9 },
-    { slug: "protect-pdf", priority: 0.9 },
+    { slug: "protect-pdf-with-password-online", priority: 0.9 },
     { slug: "unlock-pdf", priority: 0.9 },
     { slug: "pdf-merger", priority: 0.8 },
     { slug: "pdf-splitter", priority: 0.8 },

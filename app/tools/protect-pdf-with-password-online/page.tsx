@@ -109,7 +109,7 @@ export default function ProtectPdfPage() {
           </Link>
           <span className="mx-2">/</span>
           <span className="text-slate-600 dark:text-slate-200 font-bold uppercase tracking-widest">
-            Protect PDF
+            Protect PDF with password online
           </span>
         </nav>
         <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white italic mb-6">
