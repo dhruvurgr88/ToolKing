@@ -27,7 +27,6 @@ import {
   FileText,
   FileSearch,
 } from "lucide-react";
-import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import {
   AreaChart,
   Area,
@@ -39,6 +38,12 @@ import {
 } from "recharts";
 import confetti from "canvas-confetti";
 import Link from "next/link";
+
+/**
+ * NOTE: Metadata in Next.js usually goes in a layout.tsx or a separate server component.
+ * If this is your main page.tsx, you can export metadata from a parent server component.
+ * Below, I've included the JSON-LD schemas inside the component for SEO enhancements.
+ */
 
 const GRADE_SCALE = [
   { min: 93, label: "A", color: "text-emerald-500", gpa: 4.0 },
@@ -84,6 +89,51 @@ export default function UltimateGradeCalculator() {
     graphData: any[];
     letter: string;
   } | null>(null);
+
+  // SEO SCHEMAS
+  const baseUrl = "https://toolking.online";
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: `${baseUrl}/tools`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Final Grade Calculator",
+        item: `${baseUrl}/tools/final-grade-calculator`,
+      },
+    ],
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What grade do I need on my final to pass?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Most U.S. schools require at least 60% or 70% to pass. This tool calculates the exact exam score required based on your current grade and the final's weight.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How is the final grade calculated?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The formula is: Required = (Target - (Current Grade * (100% - Final Weight%))) / Final Weight%.",
+        },
+      },
+    ],
+  };
 
   useEffect(() => {
     const saved = localStorage.getItem("toolking_grades");
@@ -186,6 +236,16 @@ export default function UltimateGradeCalculator() {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#020617] pt-28 pb-20 px-4 md:px-10 font-sans selection:bg-indigo-500">
+      {/* SEO Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <h1 className="sr-only">
         Final Grade Calculator – What Do I Need on My Final?
       </h1>
@@ -197,7 +257,6 @@ export default function UltimateGradeCalculator() {
             <div className="text-6xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white leading-[0.8]">
               Grade <span className="text-indigo-600">Slayer</span>
             </div>
-            {/* ✅ INTENT HOOK INJECTED */}
             <p className="text-xs text-slate-400 mt-4 font-bold uppercase tracking-widest">
               Wondering what grade you need on your final to pass or get an A?
               Enter your scores below to find out instantly.
@@ -503,7 +562,6 @@ export default function UltimateGradeCalculator() {
           </p>
         </section>
 
-        {/* ✅ RESTORED FAQ RANKING BOOSTER */}
         <section className="space-y-10">
           <h2 className="text-3xl font-black italic uppercase tracking-tight flex items-center gap-3">
             <HelpCircle size={32} className="text-indigo-600" /> FAQs
@@ -528,7 +586,6 @@ export default function UltimateGradeCalculator() {
           </div>
         </section>
 
-        {/* ✅ OPTIMIZED INTERNAL LINKING SILO */}
         <div className="grid md:grid-cols-3 gap-6 pt-10">
           <InternalLinkCard
             title="PDF to Word"
