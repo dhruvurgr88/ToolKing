@@ -43,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // --- 3. UTILITY & BUSINESS (6 Tools) ---
   const utilityTools = [
-    { slug: "-final-grade-calculator", priority: 0.8 }, // ✅ Added Grade Calculator here
+    { slug: "final-grade-calculator", priority: 0.8 }, // ✅ Added Grade Calculator here
     { slug: "age-calculator", priority: 0.7 },
     { slug: "qr-code-generator", priority: 0.7 },
     { slug: "password-generator", priority: 0.7 },
