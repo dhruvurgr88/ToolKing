@@ -594,15 +594,15 @@ export default function UltimateGradeCalculator() {
             icon={<FileText size={20} />}
           />
           <InternalLinkCard
-            title="PDF Compressor"
-            href="/tools/pdf-compressor"
-            desc="Make PDFs smaller for uploads."
+            title="Word to PDF Converter"
+            href="/tools/word-to-pdf"
+            desc="convert DOCX to PDF online."
             icon={<FileSearch size={20} />}
           />
           <InternalLinkCard
-            title="GPA Calculator"
-            href="/tools/gpa-calculator"
-            desc="Track your cumulative 4.0 GPA."
+            title="Age Calculator"
+            href="/tools/age-calculator"
+            desc="most reliable age calculator."
             icon={<GraduationCap size={20} />}
           />
         </div>
