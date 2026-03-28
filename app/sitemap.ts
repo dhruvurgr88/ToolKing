@@ -9,8 +9,11 @@ import { blogPosts } from "../app/lib/blog-data"; // ✅ Import your centralized
 function getFileDate(relativeFilePath: string) {
   try {
     const filePath = path.join(process.cwd(), "app", relativeFilePath);
-    const stats = fs.statSync(filePath);
-    return stats.mtime;
+    if (fs.existsSync(filePath)) {
+      const stats = fs.statSync(filePath);
+      return stats.mtime;
+    }
+    return new Date();
   } catch (e) {
     return new Date();
   }
@@ -35,11 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { slug: "image-compressor", priority: 0.9 },
     { slug: "image-to-pdf", priority: 0.8 },
     { slug: "bulk-image-resizer", priority: 0.7 },
-    { slug: "jpg-to-png", priority: 0.8 }, // ✅ Added missing tool
+    { slug: "jpg-to-png", priority: 0.8 },
   ];
 
-  // --- 3. UTILITY & BUSINESS (5 Tools) ---
+  // --- 3. UTILITY & BUSINESS (6 Tools) ---
   const utilityTools = [
+    { slug: "-final-grade-calculator", priority: 0.8 }, // ✅ Added Grade Calculator here
     { slug: "age-calculator", priority: 0.7 },
     { slug: "qr-code-generator", priority: 0.7 },
     { slug: "password-generator", priority: 0.7 },
@@ -92,19 +96,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: baseUrl,
       lastModified: getFileDate("page.tsx"),
-      changeFrequency: "daily",
+      changeFrequency: "daily" as const,
       priority: 1.0,
     },
     {
       url: `${baseUrl}/tools`,
       lastModified: getFileDate("tools/page.tsx"),
-      changeFrequency: "weekly",
+      changeFrequency: "weekly" as const,
       priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,
       lastModified: getFileDate("blog/page.tsx"),
-      changeFrequency: "weekly",
+      changeFrequency: "weekly" as const,
       priority: 0.9,
     },
 
@@ -117,13 +121,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/privacy`,
       lastModified: getFileDate("privacy/page.tsx"),
-      changeFrequency: "yearly",
+      changeFrequency: "yearly" as const,
       priority: 0.3,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: getFileDate("terms/page.tsx"), // ✅ Added terms
-      changeFrequency: "yearly",
+      lastModified: getFileDate("terms/page.tsx"),
+      changeFrequency: "yearly" as const,
       priority: 0.3,
     },
   ];

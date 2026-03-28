@@ -26,10 +26,22 @@ import {
   EyeOff,
   CalendarDays,
   Unlock,
+  GraduationCap,
 } from "lucide-react";
 
 const tools = [
   // --- ROW 1: PDF CORE ---
+  {
+    title: "Grade Slayer (US)",
+    desc: "Advanced US Grade & GPA Predictor. Calculate required final exam scores and track 4.0 GPA.",
+    icon: <GraduationCap className="w-6 h-6" />,
+    href: "/tools/final-grade-calculator",
+    category: "Academic Tools",
+    color: "bg-indigo-500/10 text-indigo-600",
+    status: "New",
+    isFeatured: true,
+    stats: "4.0 Scale & PDF",
+  },
   {
     title: "PDF to Word",
     desc: "Convert PDF to editable DOCX safely.",
@@ -47,6 +59,15 @@ const tools = [
     color: "bg-indigo-500/10 text-indigo-600",
     category: "PDF",
     status: "New",
+  },
+  {
+    title: "PDF Squeezer",
+    desc: "Deep-compress PDFs to tiny file sizes (1MB or less) using browser-side image recalculation. Perfect for govt portals.",
+    href: "/tools/pdf-compressor",
+    icon: <Zap className="w-6 h-6" />, // or use the Zap component from lucide-react
+    category: "PDF Tools",
+    isNew: true,
+    stats: "Up to 90% reduction",
   },
   {
     title: "Protect PDF",

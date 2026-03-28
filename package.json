@@ -12,10 +12,13 @@
     "@ai-sdk/groq": "^3.0.31",
     "@ai-sdk/react": "^3.0.136",
     "@nutrient-sdk/viewer": "^1.13.0",
+    "@types/canvas-confetti": "^1.9.0",
     "@vercel/analytics": "^2.0.1",
     "ai": "^6.0.134",
     "browser-image-compression": "^2.0.2",
     "bwip-js": "^4.8.0",
+    "canvas-confetti": "^1.9.4",
+    "chart.js": "^4.5.1",
     "docx": "^9.6.1",
     "file-saver": "^2.0.5",
     "framer-motion": "^12.38.0",
@@ -30,7 +33,9 @@
     "pdfjs-dist": "^5.5.207",
     "qrcode.react": "^4.2.0",
     "react": "19.2.4",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "19.2.4",
+    "recharts": "^3.8.1",
     "save-as": "^0.1.8"
   },
   "devDependencies": {
